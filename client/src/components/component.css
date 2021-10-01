@@ -1,0 +1,14 @@
+@import url("https://use.typekit.net/por5frj.css");
+
+.footer__menu {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 206;
+  background-color: white;
+  color: var(--rich-black);
+  text-align: center;
+  background-image: url(./images/footer-menu-bg.svg);
+  background-repeat: no-repeat;
+}

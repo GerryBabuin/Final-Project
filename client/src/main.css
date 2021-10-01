@@ -1,0 +1,240 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Raleway:ital,wght@0,300;0,600;0,700;1,400&display=swap");
+
+:root {
+  --rich-black: #101126;
+  --sky-blueish: #7c83a6;
+  --orange: #d95204;
+  --yellow: #d97904;
+  --red: #bf0426;
+  --dark-red: #690202;
+  --pink: #bf4572;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 14px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-smooth: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--rich-black);
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  /* flex-wrap: nowrap; */
+  justify-content: space-between;
+  align-items: center;
+  /* align-content: stretch; */
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Raleway", sans-serif;
+  font-weight: 500;
+  color: white;
+  letter-spacing: 1px;
+  margin-bottom: 35px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3.5rem;
+}
+h2 {
+  font-size: 1.65rem;
+}
+
+/* .grid {
+  display: flex;
+  min-height: 100vh;
+  min-width: 100vw;
+  justify-content: center;
+  align-items: stretch;
+} */
+
+.main-content {
+  flex-grow: 1;
+  padding: 50px 25px 25px 25px;
+  min-height: calc(100vh - 10rem);
+}
+.header,
+.footer {
+  flex-shrink: 0;
+}
+
+.header {
+  background: var(--rich-black);
+  height: 2.5rem;
+  min-width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: space-between;
+  background: var(--orange);
+  padding: 3px 25px;
+}
+nav {
+  min-width: 100%;
+}
+
+.footer {
+  height: 5.25rem;
+  min-width: 100%;
+  background-image: url("./components/images/footer-menu-bg.png");
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 1rem;
+  padding-top: 2rem;
+  padding-bottom: 0.5rem;
+}
+.footer img {
+  width: auto;
+  height: 30px;
+}
+
+.footer-button {
+  width: 2rem;
+  height: auto;
+  border: none;
+  background: none;
+  margin-right: 2rem;
+}
+
+/* .footer-left {
+  margin-left: 1rem;
+}
+
+.footer-right {
+  align-content: flex-end;
+  margin-right: 1rem;
+} */
+.button-icons {
+  max-height: 30px;
+  width: auto;
+}
+
+p {
+  text-align: center;
+  font-size: 1.25rem;
+  color: var(--yellow);
+  text-align: center;
+  padding-bottom: 15px;
+}
+.join-link {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+.home-login-button {
+  border: none;
+  background: var(--orange);
+  color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 5px 20px;
+  border-radius: 12px;
+  margin-top: 15px;
+  margin-bottom: 25px;
+  font-size: 20px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  line-height: 1.6;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: 2px solid var(--yellow);
+  border-bottom: 2px solid var(--yellow);
+}
+.clear-button {
+  display: block;
+  border: none;
+  background: var(--orange);
+  color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  line-height: 1.6;
+  text-align: right;
+  border-top: 2px solid var(--yellow);
+  border-bottom: 2px solid var(--yellow);
+  margin-left: auto;
+  margin-right: auto;
+}
+.home-image {
+  margin-bottom: 35px;
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50% 25%;
+  border-top: 4px solid var(--yellow);
+  border-bottom: 4px solid var(--yellow);
+}
+.logo {
+  margin-bottom: 15px;
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+form {
+  text-align: center;
+}
+input {
+  width: 75%;
+  height: 2rem;
+  margin-bottom: 10px;
+  padding-left: 1rem;
+  border-radius: 12px;
+  border: none;
+  -moz-box-shadow: inset 0 0 10px #777;
+  -webkit-box-shadow: inset 0 0 10px #777;
+  box-shadow: inset 0 0 10px #777;
+}
+
+::placeholder {
+  color: var(--red);
+}
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: var(--red);
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: var(--red);
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: var(--red);
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: var(--red);
+}
+
+.header-menu-links {
+  color: white;
+  text-decoration: none;
+  padding-right: 2rem;
+}
