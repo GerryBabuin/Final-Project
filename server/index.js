@@ -11,11 +11,10 @@ const options = {
   useUnifiedTopology: true,
 };
 
-// import the needed node_modules.
 const express = require("express");
 const morgan = require("morgan");
 
-const { getAllRecipes } = require("./handlers.js");
+const { signIn, getAllRecipes, getUrl } = require("./handlers.js");
 
 const app = express()
   .use(morgan("tiny"))
@@ -23,8 +22,14 @@ const app = express()
 
   .use(express.static("public"))
 
-  // get all Recipes endpoint
-  .get("/recipes", getAllRecipes)
+  // get all user recipes endpoint
+  .get("/recipes/me", getAllRecipes)
+
+  // get url for scraping
+  .post("/recipes/url", getUrl)
+
+  // user login endpoint
+  .get("/user/me", signIn)
 
   // this is our catch all endpoint.
   .get("*", (req, res) => {
@@ -42,6 +47,9 @@ const setup = async () => {
   await client.connect();
 
   app.locals.client = client;
+
+  if (!client) console.log(error);
+  console.log("database is connected");
 
   // Node spins up our server and sets it to listen on port 8000.
   app.listen(8000, () => console.log(`Listening on port 8000`));

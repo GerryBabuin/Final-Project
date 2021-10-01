@@ -7,7 +7,7 @@ const NewRecipe = () => {
   const handleClick = (ev) => {
     ev.preventDefault();
     ev.stopPropagation();
-    fetch("/recipe//recipes/update/:id", {
+    fetch("/recipes/update/:id", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
     });

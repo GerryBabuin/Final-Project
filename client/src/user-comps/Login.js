@@ -20,7 +20,7 @@ const SignIn = ({ getUserData }) => {
       password: formData.password,
     };
 
-    fetch("/signin", {
+    fetch("user/me", {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },

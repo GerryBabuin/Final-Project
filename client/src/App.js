@@ -32,6 +32,7 @@ function App() {
   useEffect(() => {
     getUserData();
   }, []);
+
   return (
     <BrowserRouter>
       <Header user={user} setUser={setUser} />

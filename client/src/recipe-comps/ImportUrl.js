@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-const ImportUrl = () => {
+const Import = () => {
   const [url, setUrl] = useState();
-  const [formData, setFormData] = useState();
 
   const handleClick = (ev) => {
     ev.preventDefault();
     ev.stopPropagation();
-    fetch("/recipe/url", {
+    fetch("/recipes/url", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url }),
     });
   };
 
@@ -23,14 +23,10 @@ const ImportUrl = () => {
             placeholder="Paste recipe address here"
             name="url"
             onChange={(ev) => {
-              setUrl({ ...formData, url: ev.target.value });
+              setUrl(ev.target.value);
             }}
           />
-          <button
-            onClick={handleClick}
-            className="home-login-button"
-            type="import"
-          >
+          <button className="home-login-button" type="import">
             Import
           </button>
         </form>
@@ -39,4 +35,4 @@ const ImportUrl = () => {
   );
 };
 
-export default ImportUrl;
+export default Import;

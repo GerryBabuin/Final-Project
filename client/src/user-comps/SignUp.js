@@ -4,8 +4,8 @@ import { useHistory } from "react-router";
 
 const SignUp = () => {
   const initialState = {
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     username: "",
     email: "",
     password: "",
@@ -21,27 +21,25 @@ const SignUp = () => {
     ev.stopPropagation();
 
     const data = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
+      firstname: formData.firstname,
+      lastname: formData.lastname,
       username: formData.username,
       email: formData.email,
       password: formData.password,
-      confirmPassword: formData.confirmPassword,
+      password2: formData.password2,
     };
 
     fetch("/users/signup", {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === 200) {
-          localStorage.setItem("username", formData.username);
-        } else {
-          alert("Sorry, that username has been taken.");
-        }
-      });
+    }).then((res) => {
+      if (res.ok) {
+        localStorage.setItem("username", formData.username);
+      } else {
+        alert("Sorry, that username has been taken.");
+      }
+    });
 
     history.push("/recipes");
   };
@@ -49,18 +47,18 @@ const SignUp = () => {
   let readyToSubmit = false;
 
   if (
-    formData.firstName !== "" &&
-    formData.lastName !== "" &&
+    formData.firstname !== "" &&
+    formData.lastname !== "" &&
     formData.username !== "" &&
     formData.username.length > 5 &&
     formData.email !== "" &&
     formData.email.includes("@") &&
     formData.email.includes(".") &&
     formData.password !== "" &&
-    formData.password.length > 7 &&
-    formData.confirmPassword !== "" &&
-    formData.confirmPassword.length > 7 &&
-    formData.password === formData.confirmPassword
+    formData.password.length > 8 &&
+    formData.password2 !== "" &&
+    formData.password2.length > 8 &&
+    formData.password === formData.password2
   ) {
     readyToSubmit = true;
   }
@@ -77,25 +75,25 @@ const SignUp = () => {
           <input
             type="text"
             placeholder="First Name"
-            name="firstName"
+            name="firstname"
             onChange={(ev) => {
-              setFormData({ ...formData, firstName: ev.target.value });
+              setFormData({ ...formData, firstname: ev.target.value });
             }}
           />
           <input
             type="text"
             placeholder="Last Name"
-            name="lastName"
+            name="lastname"
             onChange={(ev) => {
-              setFormData({ ...formData, lastName: ev.target.value });
+              setFormData({ ...formData, lastname: ev.target.value });
             }}
           />
           <input
             type="text"
             placeholder="Username"
-            name="userName"
+            name="username"
             onChange={(ev) => {
-              setFormData({ ...formData, userName: ev.target.value });
+              setFormData({ ...formData, username: ev.target.value });
             }}
           />
 
@@ -120,22 +118,20 @@ const SignUp = () => {
           <input
             type="password"
             placeholder="Confirm Password"
-            name="confirm-password"
+            name="password2"
             onChange={(ev) => {
-              setFormData({ ...formData, confirmPassword: ev.target.value });
+              setFormData({ ...formData, password2: ev.target.value });
             }}
           />
 
           <div>
-            {readyToSubmit ? (
-              <button className="home-login-button" type="submit">
-                Sign UP
-              </button>
-            ) : (
-              <button className="home-login-button" type="submit" disabled>
-                Sign UP
-              </button>
-            )}
+            <button
+              className="home-login-button"
+              type="submit"
+              disabled={!readyToSubmit}
+            >
+              Sign UP
+            </button>
           </div>
         </form>
       </div>
