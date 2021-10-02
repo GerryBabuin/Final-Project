@@ -11,6 +11,7 @@ import Recipes from "./recipe-comps/Recipes";
 import Tags from "./recipe-comps/Tags";
 import Search from "./recipe-comps/Search";
 import ImportUrl from "./recipe-comps/ImportUrl";
+import NewRecipe from "./recipe-comps/NewRecipe";
 
 function App() {
   const [user, setUser] = useState();
@@ -45,6 +46,9 @@ function App() {
         </Route>
         <Route path="/addnew">
           <ImportUrl />
+        </Route>
+        <Route path="/newrecipe">
+          <NewRecipe />
         </Route>
         <Route path="/search">
           <Search />

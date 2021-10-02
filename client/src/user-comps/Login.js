@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
+import Tomato from "../images/mockup-graphics-lDhhUl3Gp3Q-unsplash.png";
 
 const SignIn = ({ getUserData }) => {
   const initialState = {
@@ -74,6 +75,7 @@ const SignIn = ({ getUserData }) => {
             )}
           </div>
         </form>
+        <img src={Tomato} className="login-pic" />
       </div>
     </div>
   );

@@ -38,9 +38,9 @@ const getAllRecipes = async (req, res) => {
 const getUrl = async (req, res) => {
   try {
     const { url } = req.body;
-
     let recipe = await recipeScraper(url);
     console.log(recipe);
+    res.status(200).json({ status: 200, data: recipe });
   } catch (error) {
     res.status(400).json({ status: 400, data: "Import failed" });
   }

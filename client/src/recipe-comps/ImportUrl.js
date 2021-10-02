@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router";
+import Pepper from "../images/mockup-graphics-nZUQgW0FVnc-unsplash.png";
+import NewRecipe from "./NewRecipe";
 
 const Import = () => {
   const [url, setUrl] = useState();
+  const [recipeData, setRecipeData] = useState(null);
 
   const handleClick = (ev) => {
     ev.preventDefault();
@@ -10,7 +14,12 @@ const Import = () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url }),
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setRecipeData(data.data);
+        console.log("IU Recipe Data", data.data);
+      });
   };
 
   return (
@@ -30,6 +39,8 @@ const Import = () => {
             Import
           </button>
         </form>
+        <NewRecipe recipeData={recipeData} />
+        <img src={Pepper} className="import-pic" />
       </div>
     </div>
   );

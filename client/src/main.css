@@ -249,3 +249,22 @@ input {
   color: var(--yellow);
   margin-bottom: 5px;
 }
+
+.import-pic {
+  width: 200px;
+  height: auto;
+  margin-top: 150px;
+  transform: rotate(-45deg);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.login-pic {
+  width: 200px;
+  height: auto;
+  margin-top: 100px;
+  transform: rotate(-90deg);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
