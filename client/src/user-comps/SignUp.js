@@ -37,14 +37,14 @@ const SignUp = () => {
       .then((res) => res.json())
       .then((data) => {
         setFormData(data.data);
-        history.push("/recipes");
+        history.push("/addnew");
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   };
 
-  let readyToSubmit = false;
+  // let readyToSubmit = false;
 
   if (
     formData.firstname !== "" &&
@@ -60,7 +60,7 @@ const SignUp = () => {
     formData.password2 > 8 &&
     formData.password === formData.password2
   ) {
-    readyToSubmit = true;
+    // readyToSubmit = true;
   }
 
   return (
@@ -128,7 +128,7 @@ const SignUp = () => {
             <button
               className="home-login-button"
               type="submit"
-              disabled={!readyToSubmit}
+              // disabled={!readyToSubmit}
             >
               Sign UP
             </button>

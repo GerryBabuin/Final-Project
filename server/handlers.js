@@ -87,9 +87,46 @@ const getUrl = async (req, res) => {
   }
 };
 
+const newRecipe = async (req, res) => {
+  if (!recipe) {
+    const addRecipe = {
+      id: uuidv4(),
+      name: name,
+      description: description,
+      ingredients: ingredients,
+      instructions: instructions,
+      tags: tags,
+      prep: prep,
+      total: total,
+      servings: servings,
+    };
+
+    await db
+      .collection("Users")
+      .updateOne({ _id: userId }, { $push: addRecipe });
+
+    res.status(200).json({
+      status: 200,
+      data: req.body,
+      message: "User added",
+    });
+  } else {
+    res.status(400).json({ status: 400, data: "User not added" });
+  }
+  // } catch (err) {
+  //   console.log(err);
+  //   res.status(500).json({
+  //     status: 500,
+  //     data: err,
+  //     message: "Something went wrong",
+  //   });
+  // }
+};
+
 module.exports = {
   getAllRecipes,
   signIn,
   getUrl,
   userSignUp,
+  newRecipe,
 };

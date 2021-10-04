@@ -10,6 +10,7 @@ const SignIn = () => {
   };
 
   const [formData, setFormData] = useState(initialState);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   // retrieving the user data from session storage
   const user = sessionStorage.getItem("user");
@@ -20,7 +21,7 @@ const SignIn = () => {
   // doesn't allow user to go the signin page after logging in
   useEffect(() => {
     if (user) {
-      history.push("/recipes/me");
+      history.push("users/me/recipes");
     }
   }, [history, user]);
 
@@ -37,6 +38,7 @@ const SignIn = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
+          setLoggedIn(true);
           // window.sessionStorage.setItem("user", data.data.username);
           // window.sessionStorage.setItem("password", data.data.password);
           history.push("/");

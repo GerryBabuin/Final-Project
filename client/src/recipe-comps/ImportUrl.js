@@ -1,20 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // import { useHistory } from "react-router";
 import Cinnamon from "../images/mockup-graphics-XxaIHwP5lsE-unsplash.png";
+import NewRecipe from "./NewRecipe";
 
 const Import = () => {
-  const initialState = {
-    name: "",
-    description: "",
-    image: "",
-    ingredients: [],
-    instructions: [],
-    tags: "",
-    servings: "",
-    time: "",
-  };
+  // const initialState = {
+  //   name: "",
+  //   description: "",
+  //   image: "",
+  //   ingredients: [],
+  //   instructions: [],
+  //   tags: "",
+  //   servings: "",
+  //   time: "",
+  //   active: "",
+  //   cook: "",
+  //   inactive: "",
+  //   prep: "",
+  //   ready: "",
+  //   total: "",
+  // };
+
   const [url, setUrl] = useState();
-  const [recipeData, setRecipeData] = useState(initialState);
+  const [recipeData, setRecipeData] = useState(null);
 
   const convertUrl = (ev) => {
     const postUrl = {
@@ -26,9 +34,7 @@ const Import = () => {
       .then((res) => res.json())
       .then((data) => {
         setRecipeData(data.data);
-        console.log("IU Recipe Data", data.data);
-        // let recipe = data.data;
-        console.log("setRecipeData", recipeData);
+        // console.log("IU Recipe Data", data.data);
       });
   };
 
@@ -37,34 +43,37 @@ const Import = () => {
     ev.stopPropagation();
     convertUrl();
   };
+
+  console.log("setRecipeData", recipeData);
+
   return (
     <React.Fragment>
-      {/* {!recipeData ? (
-        <div>
-          <p>Just preparing your recipe</p>
-        </div>
-      ) : ( */}
       <div className="grid">
         <div className="main-content">
-          <h2>What are we cooking today?</h2>
-          <form onSubmit={handleClick}>
-            <input
-              type="text"
-              placeholder="Paste recipe address here"
-              name="url"
-              onChange={(ev) => {
-                setUrl(ev.target.value);
-              }}
-            />
-            <button className="home-login-button" type="import">
-              Import
-            </button>
-          </form>
+          {recipeData ? (
+            <NewRecipe {...recipeData} />
+          ) : (
+            <React.Fragment>
+              <h2>What are we cooking today?</h2>
+              <form onSubmit={handleClick}>
+                <input
+                  type="text"
+                  placeholder="Paste recipe address here"
+                  name="url"
+                  onChange={(ev) => {
+                    setUrl(ev.target.value);
+                  }}
+                />
+                <button className="home-login-button" type="import">
+                  Import
+                </button>
+              </form>
 
-          <img src={Cinnamon} className="import-pic" alt="hot pepper" />
+              <img src={Cinnamon} className="import-pic" alt="hot pepper" />
+            </React.Fragment>
+          )}
         </div>
       </div>
-      {/* )} */}
     </React.Fragment>
   );
 };

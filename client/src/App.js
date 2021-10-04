@@ -10,7 +10,7 @@ import Login from "./user-comps/Login.js";
 import Recipes from "./recipe-comps/Recipes";
 import Tags from "./recipe-comps/Tags";
 import Search from "./recipe-comps/Search";
-import ImportUrl from "./recipe-comps/ImportUrl";
+import Import from "./recipe-comps/ImportUrl";
 import NewRecipe from "./recipe-comps/NewRecipe";
 
 function App() {
@@ -46,7 +46,7 @@ function App() {
           <Recipes />
         </Route>
         <Route path="/addnew">
-          <ImportUrl />
+          <Import />
         </Route>
         <Route path="/newrecipe">
           <NewRecipe />

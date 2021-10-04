@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import Pagination from "./Pagination";
+// import Pagination from "./Pagination";
 
 export default function Recipes() {
   const [totalRecipes, setTotalRecipes] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [recipesPerPage, setRecipesPerPage] = useState(2);
+  // const [loading, setLoading] = useState(false);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [recipesPerPage, setRecipesPerPage] = useState(2);
 
   const params = useParams();
   const _id = params._id;
@@ -14,7 +14,7 @@ export default function Recipes() {
   const history = useHistory();
 
   useEffect(() => {
-    const path = "/recipes/me";
+    const path = "users/me/recipes";
     console.log("path", path);
     fetch(path)
       .then((res) => res.json())
@@ -27,17 +27,17 @@ export default function Recipes() {
       });
   }, []);
 
-  const indexOfLastRecipe = currentPage * recipesPerPage;
-  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
-  const currentRecipes = totalRecipes.slice(
-    indexOfFirstRecipe,
-    indexOfLastRecipe
-  );
+  // const indexOfLastRecipe = currentPage * recipesPerPage;
+  // const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+  // const currentRecipes = totalRecipes.slice(
+  //   indexOfFirstRecipe,
+  //   indexOfLastRecipe
+  // );
 
   const handleClick = (e, _id) => {
     e.preventDefault();
     e.stopPropagation();
-    history.push(`/recipes/me/${_id}`);
+    history.push(`users/me/recipes/${_id}`);
   };
 
   return (
@@ -66,10 +66,10 @@ export default function Recipes() {
             })}
           </div>
         )}
-        <Pagination
+        {/* <Pagination
           recipesPerPage={recipesPerPage}
           totalRecipes={totalRecipes}
-        />
+        /> */}
       </div>
     </div>
   );
