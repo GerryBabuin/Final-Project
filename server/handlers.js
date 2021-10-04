@@ -22,6 +22,47 @@ const signIn = async (req, res) => {
   }
 };
 
+const userSignUp = async (req, res) => {
+  const db = req.app.locals.client.db("Recipe-App");
+
+  const { firstname, lastname, username, email, password } = req.body;
+
+  try {
+    const query = { _id: req.body.email };
+
+    const userCheck = await db.collection("Users").findOne(query);
+
+    if (!userCheck) {
+      const newUser = {
+        _id: uuidv4(),
+        firstname: firstname,
+        lastname: lastname,
+        username: username,
+        email: email,
+        password: password,
+        recipes: [],
+      };
+
+      await db.collection("Users").insertOne(newUser);
+
+      res.status(200).json({
+        status: 200,
+        data: req.body,
+        message: "User added",
+      });
+    } else {
+      res.status(400).json({ status: 400, data: "User not added" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      status: 500,
+      data: err,
+      message: "Something went wrong",
+    });
+  }
+};
+
 const getAllRecipes = async (req, res) => {
   const db = req.app.locals.client.db("Recipe-App");
 
@@ -50,4 +91,5 @@ module.exports = {
   getAllRecipes,
   signIn,
   getUrl,
+  userSignUp,
 };

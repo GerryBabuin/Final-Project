@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
 import Tomato from "../images/mockup-graphics-lDhhUl3Gp3Q-unsplash.png";
 
-const SignIn = () => {
-  // set state from the event input
+const SignIn = ({ getUserData }) => {
   const initialState = {
     username: "",
     password: "",
@@ -11,39 +10,28 @@ const SignIn = () => {
 
   const [formData, setFormData] = useState(initialState);
 
-  // retrieving the user data from session storage
-  const user = sessionStorage.getItem("user");
-
-  // retrieving the user data from session storage
   const history = useHistory();
 
-  // doesn't allow user to go the signin page after logging in
-  useEffect(() => {
-    if (user) {
-      history.push("/recipes/me");
-    }
-  }, [history, user]);
+  const handleClick = (ev) => {
+    ev.preventDefault();
+    ev.stopPropagation();
 
-  // submits/posts the info to server
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    fetch("/users/me", {
+    const data = {
+      username: formData.username,
+      password: formData.password,
+    };
+
+    fetch("users/me", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === 200) {
-          // window.sessionStorage.setItem("user", data.data.username);
-          // window.sessionStorage.setItem("password", data.data.password);
-          history.push("/");
-        } else {
-          alert("User doesn't exist");
-        }
-      });
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" },
+    }).then((res) => {
+      if (res.ok) {
+        getUserData().then(() => history.push("/recipes"));
+      } else {
+        alert("Username or password is incorrect.");
+      }
+    });
   };
 
   let readyToSubmit = false;
@@ -51,11 +39,12 @@ const SignIn = () => {
   if (formData.username !== "" && formData.password !== "") {
     readyToSubmit = true;
   }
+
   return (
     <div className="grid">
       <div className="main-content">
         <h2>What are we cooking today?</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleClick}>
           <input
             type="text"
             placeholder="Username"

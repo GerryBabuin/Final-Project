@@ -14,29 +14,30 @@ import ImportUrl from "./recipe-comps/ImportUrl";
 import NewRecipe from "./recipe-comps/NewRecipe";
 
 function App() {
-  const [user, setUser] = useState();
+  // const [user, setUser] = useState();
 
-  const getUserData = () => {
-    return fetch("/user/:id")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.data) {
-          setUser(data.data);
-          console.log(data.data, "user");
-        }
-      })
-      .catch((error) => {
-        console.error("Error", error);
-      });
-  };
+  // const getUserData = () => {
+  //   return fetch("/users/me")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (data.data) {
+  //         setUser(data.data);
+  //         console.log(data.data, "user");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error", error);
+  //     });
+  // };
 
-  useEffect(() => {
-    getUserData();
-  }, []);
+  // useEffect(() => {
+  //   getUserData();
+  // }, []);
 
   return (
     <BrowserRouter>
-      <Header user={user} setUser={setUser} />
+      <Header />
+      {/* user={user} setUser={setUser} */}
       <Switch>
         <Route exact path="/">
           <HomePage />
@@ -60,11 +61,9 @@ function App() {
           <SignUp />
         </Route>
         <Route path="/signin">
-          <Login getUserData={getUserData} />
+          <Login />
+          {/* getUserData={getUserData} */}
         </Route>
-        {/* <Route exact path="/account">
-          <Account user={user} setUser={setUser} />
-        </Route> */}
       </Switch>
       <Footer />
     </BrowserRouter>

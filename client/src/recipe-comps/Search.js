@@ -4,13 +4,13 @@ export default function Search({ suggestion, categories }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [recipes, setRecipes] = useState([]);
   // const [filteredRecipes, setFilteredRecipes] = useState([]);
-  const [value, setValue] = React.useState("");
+  // const [value, setValue] = React.useState("");
 
   const resetValue = () => {
     setSearchTerm("");
   };
   useEffect(() => {
-    const path = "/recipes";
+    const path = "/recipes/me";
     console.log("path", path);
     fetch(path)
       .then((res) => res.json())
@@ -28,9 +28,9 @@ export default function Search({ suggestion, categories }) {
   };
 
   // filter array for matchedSuggestions
-  // const matchedSuggestions = recipes.filter(function (suggestions) {
-  //   return suggestions.title.toLowerCase().includes(searchTerm.toLowerCase());
-  // });
+  const matchedSuggestions = recipes.filter(function (suggestions) {
+    return suggestions.name.toLowerCase().includes(searchTerm.toLowerCase());
+  });
 
   return (
     <div className="grid">
@@ -41,7 +41,6 @@ export default function Search({ suggestion, categories }) {
             Clear
           </button>
           <input
-            tabindex="0"
             type="text"
             placeholder={"Search..."}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -52,7 +51,7 @@ export default function Search({ suggestion, categories }) {
             }}
           />
 
-          {/* {searchTerm.length < 3 ? (
+          {searchTerm.length < 3 ? (
             <ul style={{ display: "none" }}></ul>
           ) : (
             <ul style={{ display: "block" }} tabindex="-1">
@@ -63,17 +62,14 @@ export default function Search({ suggestion, categories }) {
                     onClick={() => handleSelect(suggestion.title)}
                   >
                     <span>
-                      {suggestion.title.slice(0, searchTerm.length)}
-                      <span>{suggestion.title.slice(searchTerm.length)}</span>
-                      <span>
-                        in <span>{categories[suggestion.categoryId].name}</span>
-                      </span>
+                      {suggestion.name.slice(0, searchTerm.length)}
+                      <span>{suggestion.name.slice(searchTerm.length)}</span>
                     </span>
                   </li>
                 );
               })}
             </ul>
-          )} */}
+          )}
         </form>
       </div>
     </div>

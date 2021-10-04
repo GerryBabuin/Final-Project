@@ -14,7 +14,7 @@ const options = {
 const express = require("express");
 const morgan = require("morgan");
 
-const { signIn, getAllRecipes, getUrl } = require("./handlers.js");
+const { signIn, userSignUp, getAllRecipes, getUrl } = require("./handlers.js");
 
 const app = express()
   .use(morgan("tiny"))
@@ -22,14 +22,21 @@ const app = express()
 
   .use(express.static("public"))
 
+  // USER SECTION
+
+  // create a new user
+  .post("/users/signup", userSignUp)
+
+  // user login endpoint
+  .post("/users/me", signIn)
+
+  // RECIPE SECTION
+
   // get all user recipes endpoint
   .get("/recipes/me", getAllRecipes)
 
   // get url for scraping
   .post("/recipes/url", getUrl)
-
-  // user login endpoint
-  .get("/user/me", signIn)
 
   // this is our catch all endpoint.
   .get("*", (req, res) => {

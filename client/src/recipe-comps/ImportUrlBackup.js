@@ -1,28 +1,19 @@
 import React, { useState, useEffect } from "react";
 // import { useHistory } from "react-router";
-import Cinnamon from "../images/mockup-graphics-XxaIHwP5lsE-unsplash.png";
+import Pepper from "../images/mockup-graphics-nZUQgW0FVnc-unsplash.png";
 
 const Import = () => {
-  const initialState = {
-    name: "",
-    description: "",
-    image: "",
-    ingredients: [],
-    instructions: [],
-    tags: "",
-    servings: "",
-    time: "",
-  };
   const [url, setUrl] = useState();
-  const [recipeData, setRecipeData] = useState(initialState);
+  const [recipeData, setRecipeData] = useState({});
 
-  const convertUrl = (ev) => {
-    const postUrl = {
+  const handleClick = (ev) => {
+    ev.preventDefault();
+    ev.stopPropagation();
+    fetch("/recipes/url", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url }),
-    };
-    fetch("/recipes/url", postUrl)
+    })
       .then((res) => res.json())
       .then((data) => {
         setRecipeData(data.data);
@@ -32,11 +23,6 @@ const Import = () => {
       });
   };
 
-  const handleClick = (ev) => {
-    ev.preventDefault();
-    ev.stopPropagation();
-    convertUrl();
-  };
   return (
     <React.Fragment>
       {/* {!recipeData ? (
@@ -61,7 +47,7 @@ const Import = () => {
             </button>
           </form>
 
-          <img src={Cinnamon} className="import-pic" alt="hot pepper" />
+          <img src={Pepper} className="import-pic" alt="hot pepper" />
         </div>
       </div>
       {/* )} */}

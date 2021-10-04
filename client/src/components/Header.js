@@ -4,15 +4,13 @@ import { NavLink } from "react-router-dom";
 const Header = ({ user }) => {
   return (
     <div className="header">
-      <nav>
-        <NavLink exact to="/" className="header-menu-links">
-          Home
-        </NavLink>
+      <NavLink exact to="/" className="header-menu-links">
+        Home
+      </NavLink>
 
-        <NavLink to="/signin" className="header-menu-links">
-          Sign In
-        </NavLink>
-      </nav>
+      <NavLink to="/signin" className="header-menu-links">
+        Sign In
+      </NavLink>
     </div>
   );
 };

@@ -33,15 +33,15 @@ const SignUp = () => {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
-    }).then((res) => {
-      if (res.ok) {
-        localStorage.setItem("username", formData.username);
-      } else {
-        alert("Sorry, that username has been taken.");
-      }
-    });
-
-    history.push("/recipes");
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setFormData(data.data);
+        history.push("/recipes");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   let readyToSubmit = false;
@@ -55,9 +55,9 @@ const SignUp = () => {
     formData.email.includes("@") &&
     formData.email.includes(".") &&
     formData.password !== "" &&
-    formData.password.length > 8 &&
+    formData.password > 8 &&
     formData.password2 !== "" &&
-    formData.password2.length > 8 &&
+    formData.password2 > 8 &&
     formData.password === formData.password2
   ) {
     readyToSubmit = true;
