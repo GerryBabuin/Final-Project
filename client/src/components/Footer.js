@@ -10,7 +10,7 @@ const Footer = () => {
     <div className="footer">
       <div className="footer-content">
         <div className="footer-left">
-          <Link to="/recipes">
+          <Link to="/recipes/:id">
             <button className="footer-button">
               <img src={Recipes} alt="Recipes" className="button-icons" />
               recipes

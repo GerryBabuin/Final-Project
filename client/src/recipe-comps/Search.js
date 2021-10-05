@@ -1,36 +1,30 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-export default function Search({ suggestion, categories }) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [recipes, setRecipes] = useState([]);
-  // const [filteredRecipes, setFilteredRecipes] = useState([]);
-  // const [value, setValue] = React.useState("");
-
+export default function Search() {
+  const [query, setQuery] = useState("");
+  const params = useParams();
+  const id = params.id;
   const resetValue = () => {
-    setSearchTerm("");
+    setQuery("");
   };
   useEffect(() => {
-    const path = "/recipes/me";
+    const path = `/users/recipes/${id}`;
     console.log("path", path);
     fetch(path)
       .then((res) => res.json())
       .then((data) => {
-        setRecipes(data.data);
+        setQuery(data.data);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-    setRecipes([]);
+    setQuery([]);
   }, []);
 
   const handleSelect = (e) => {
-    setSearchTerm(e.target.value);
+    setQuery(e.target.value);
   };
-
-  // filter array for matchedSuggestions
-  const matchedSuggestions = recipes.filter(function (suggestions) {
-    return suggestions.name.toLowerCase().includes(searchTerm.toLowerCase());
-  });
 
   return (
     <div className="grid">
@@ -43,7 +37,7 @@ export default function Search({ suggestion, categories }) {
           <input
             type="text"
             placeholder={"Search..."}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 handleSelect(e.target.value);
@@ -51,19 +45,19 @@ export default function Search({ suggestion, categories }) {
             }}
           />
 
-          {searchTerm.length < 3 ? (
+          {query.length < 3 ? (
             <ul style={{ display: "none" }}></ul>
           ) : (
             <ul style={{ display: "block" }} tabindex="-1">
-              {matchedSuggestions.map((suggestion) => {
+              {query.map((recipe) => {
                 return (
                   <li
-                    key={suggestion.id}
-                    onClick={() => handleSelect(suggestion.title)}
+                    key={recipe.id}
+                    onClick={() => handleSelect(recipe.title)}
                   >
                     <span>
-                      {suggestion.name.slice(0, searchTerm.length)}
-                      <span>{suggestion.name.slice(searchTerm.length)}</span>
+                      {recipe.name.slice(0, query.length)}
+                      <span>{recipe.name.slice(query.length)}</span>
                     </span>
                   </li>
                 );

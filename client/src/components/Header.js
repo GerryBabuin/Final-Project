@@ -7,15 +7,17 @@ const Header = () => {
   return (
     <div className="header">
       <NavLink exact to="/" className="header-menu-links">
-        Home
+        home
       </NavLink>
 
       <div>
         {user ? (
-          <div className="header-menu-links">Welcome back {user}</div>
+          <p className="header-menu-p">
+            happy cooking <span className="username">{user}</span>
+          </p>
         ) : (
           <NavLink to="/signin" className="header-menu-links">
-            Sign In
+            sign in
           </NavLink>
         )}
       </div>

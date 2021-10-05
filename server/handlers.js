@@ -11,7 +11,7 @@ const signIn = async (req, res) => {
     const db = req.app.locals.client.db("Recipe-App");
 
     const user = await db.collection("Users").findOne({ username });
-    // console.log("mongo", user);
+
     if (!user) {
       res.status(400).json({ status: 400, message: "User not found" });
       return;
@@ -69,7 +69,11 @@ const userSignUp = async (req, res) => {
 };
 
 const getAllRecipes = async (req, res) => {
+  const id = req.params.id;
+
   const db = req.app.locals.client.db("Recipe-App");
+
+  const user = await db.collection("Users").findOne({ username: id });
 
   const recipes = await db.collection("Recipes").find().toArray();
 

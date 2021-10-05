@@ -291,6 +291,7 @@ label {
 .header-menu-links {
   color: white;
   text-decoration: none;
+  font-size: 1rem;
 }
 
 .list-recipe-image,
@@ -334,4 +335,14 @@ label {
   transform: rotate(-90deg);
   display: block;
   margin-left: 8rem;
+}
+.header-menu-p {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  margin-top: 17px;
+}
+.username {
+  color: var(--dark-red);
+  font-weight: bold;
 }

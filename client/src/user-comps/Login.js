@@ -21,7 +21,7 @@ const SignIn = () => {
   // doesn't allow user to go the signin page after logging in
   useEffect(() => {
     if (user) {
-      history.push("users/recipes/:id");
+      history.push("/recipes/:id");
     }
   }, [history, user]);
 

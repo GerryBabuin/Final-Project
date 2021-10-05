@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-// import Pagination from "./Pagination";
 
 export default function Recipes() {
   const [totalRecipes, setTotalRecipes] = useState([]);
+  const user = sessionStorage.getItem("user");
 
   const params = useParams();
-  const id = params._id;
-
+  const id = params.id;
+  console.log("id", id);
   const history = useHistory();
 
   useEffect(() => {
-    const path = "users/recipes/:id";
-    console.log("path", path);
+    const path = `/users/recipes/${id}`;
+
     fetch(path)
       .then((res) => res.json())
       .then((data) => {
@@ -27,7 +27,7 @@ export default function Recipes() {
   const handleClick = (e, _id) => {
     e.preventDefault();
     e.stopPropagation();
-    // history.push(`users/me/recipes/${_id}`);
+    history.push(`/users/recipes/${id}`);
   };
 
   return (
@@ -38,10 +38,7 @@ export default function Recipes() {
           <div>
             {totalRecipes.map((recipe) => {
               return (
-                <div
-                  key={recipe._id}
-                  onClick={(e) => handleClick(e, recipe._id)}
-                >
+                <div key={recipe.id} onClick={(e) => handleClick(e, recipe.id)}>
                   <img
                     src={recipe.image}
                     alt={recipe.name}

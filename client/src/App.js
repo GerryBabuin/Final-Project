@@ -14,6 +14,7 @@ import Import from "./recipe-comps/ImportUrl";
 import NewRecipe from "./recipe-comps/NewRecipe";
 
 function App() {
+  const user = sessionStorage.getItem("user");
   return (
     <BrowserRouter>
       <Header />
@@ -22,8 +23,8 @@ function App() {
         <Route exact path="/">
           <HomePage />
         </Route>
-        <Route path="/recipes">
-          <Recipes />
+        <Route path="/recipes/:id">
+          <Recipes user={user} />
         </Route>
         <Route path="/addnew">
           <Import />

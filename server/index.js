@@ -28,6 +28,8 @@ const app = express()
 
   .use(express.static("public"))
 
+  // USER SECTION
+
   // create a new user
   .post("/users/signup", userSignUp)
 
@@ -37,7 +39,7 @@ const app = express()
   // RECIPE SECTION
 
   // get all recipes
-  .get("users/recipes/:id", getAllRecipes)
+  .get("/users/recipes/:id", getAllRecipes)
 
   // get url for scraping
   .post("/recipes/url", getUrl)
