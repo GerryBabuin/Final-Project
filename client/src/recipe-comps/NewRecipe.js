@@ -4,6 +4,7 @@ import TextareaAutosize from "react-textarea-autosize";
 
 const NewRecipe = (props) => {
   const [recipe, setRecipe] = useState(null);
+  const user = sessionStorage.getItem("user");
 
   useEffect(() => {
     console.log(props);
@@ -19,22 +20,19 @@ const NewRecipe = (props) => {
     const postRecipe = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(recipe),
+      body: JSON.stringify({ recipe, userId: user }),
     };
-    fetch("/recipes/new", saveRecipe)
+    fetch("/users/recipes", postRecipe)
       .then((res) => res.json())
       .then((data) => {
-        // if (res.ok) {
-        //   history.push("/recipes/:id");
-        // } else {
-        //   alert("Recipe did not save.");
-        // }
+        console.log("then", data);
+        if (res.ok) {
+          history.push("users/recipes/:id");
+        } else {
+          alert("Recipe did not save.");
+        }
       });
-    postRecipe();
   };
-
-  // POST "/user/:userId/receipes"
-  // updateOne({ _id: userId }, { $push: { recipes: req.body } })
 
   if (!recipe) {
     return null;
@@ -55,12 +53,12 @@ const NewRecipe = (props) => {
   return (
     <div className="grid">
       <div className="main-content-import">
-        <form className="editRecipe">
+        <form className="editRecipe" onSubmit={saveRecipe}>
           <img src={image} alt={name} className="import-recipe-image" />
           <label for="name">Name:</label>
           <input
             type="text"
-            id="Name"
+            name="name"
             placeholder="Name"
             value={name}
             onChange={(e) => {
@@ -73,7 +71,7 @@ const NewRecipe = (props) => {
               <input
                 className="time"
                 type="text"
-                id="Prep"
+                name="prep"
                 placeholder="Prep"
                 value={prep}
                 onChange={(e) => {
@@ -86,7 +84,7 @@ const NewRecipe = (props) => {
               <input
                 className="time"
                 type="text"
-                id="Total"
+                name="total"
                 placeholder="Total"
                 value={total}
                 onChange={(e) => {
@@ -99,7 +97,7 @@ const NewRecipe = (props) => {
               <input
                 className="time"
                 type="text"
-                id="Servings"
+                name="servings"
                 placeholder="Servings"
                 value={servings}
                 onChange={(e) => {
@@ -112,7 +110,7 @@ const NewRecipe = (props) => {
           <TextareaAutosize
             autoSize={true}
             rows={2}
-            id="Description"
+            name="description"
             placeholder="Description"
             value={description}
             onChange={(e) => {
@@ -123,7 +121,7 @@ const NewRecipe = (props) => {
           <TextareaAutosize
             autoSize={true}
             rows={2}
-            id="Ingredients"
+            name="ingredients"
             placeholder="Ingredients"
             value={ingredients}
             onChange={(e) => {
@@ -134,7 +132,7 @@ const NewRecipe = (props) => {
           <TextareaAutosize
             autoSize={true}
             rows={2}
-            id="Instructions"
+            name="instructions"
             placeholder="Instructions"
             value={instructions}
             onChange={(e) => {
@@ -144,14 +142,14 @@ const NewRecipe = (props) => {
           <label for="tags">Tags:</label>
           <input
             type="text"
-            id="Tags"
+            name="tags"
             placeholder="Tags"
             value={tags}
             onChange={(e) => {
               setRecipe({ ...recipe, tags: e.target.value });
             }}
           />
-          <button onClick={saveRecipe} className="home-login-button">
+          <button type="submit" className="home-login-button">
             Save
           </button>
         </form>

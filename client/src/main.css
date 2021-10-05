@@ -240,7 +240,7 @@ input {
   height: 2rem;
 }
 textarea {
-  min-height: 6rem;
+  height: 6rem;
   white-space: pre-line;
 }
 .editRecipe input,

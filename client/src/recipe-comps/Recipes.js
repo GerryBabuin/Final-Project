@@ -4,17 +4,14 @@ import { useParams, useHistory } from "react-router-dom";
 
 export default function Recipes() {
   const [totalRecipes, setTotalRecipes] = useState([]);
-  // const [loading, setLoading] = useState(false);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [recipesPerPage, setRecipesPerPage] = useState(2);
 
   const params = useParams();
-  const _id = params._id;
+  const id = params._id;
 
   const history = useHistory();
 
   useEffect(() => {
-    const path = "users/me/recipes";
+    const path = "users/recipes/:id";
     console.log("path", path);
     fetch(path)
       .then((res) => res.json())
@@ -27,17 +24,10 @@ export default function Recipes() {
       });
   }, []);
 
-  // const indexOfLastRecipe = currentPage * recipesPerPage;
-  // const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
-  // const currentRecipes = totalRecipes.slice(
-  //   indexOfFirstRecipe,
-  //   indexOfLastRecipe
-  // );
-
   const handleClick = (e, _id) => {
     e.preventDefault();
     e.stopPropagation();
-    history.push(`users/me/recipes/${_id}`);
+    // history.push(`users/me/recipes/${_id}`);
   };
 
   return (

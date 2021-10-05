@@ -42,7 +42,7 @@ const app = express()
   // get url for scraping
   .post("/recipes/url", getUrl)
 
-  .post("/users/recipes/:id", newRecipe)
+  .post("/users/recipes", newRecipe)
 
   // this is our catch all endpoint.
   .get("*", (req, res) => {

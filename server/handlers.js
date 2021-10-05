@@ -11,46 +11,26 @@ const signIn = async (req, res) => {
     const db = req.app.locals.client.db("Recipe-App");
 
     const user = await db.collection("Users").findOne({ username });
-
+    // console.log("mongo", user);
     if (!user) {
-      res.status(400).json({ status: 400, data: "User not found" });
+      res.status(400).json({ status: 400, message: "User not found" });
       return;
     }
 
     if (user.password !== password) {
-      res.status(400).json({ status: 400, data: "Incorrect Password" });
+      res.status(400).json({ status: 400, message: "Incorrect Password" });
     } else {
-      res.status(200).json({ status: 200, data: "Successful login" });
+      res.status(200).json({ status: 200, data: user.username });
     }
   } catch {
     res.status(400).json({ status: 400, data: "Login Failed" });
   }
 };
 
-// const signIn = async (req, res) => {
-//   const { username, password } = user;
-
-//   const db = req.app.locals.client.db("Recipe-App");
-
-//   const user = await db.collection("Users").findOne({ username });
-
-//   if (!user) {
-//     res.status(400).json({ status: 400, data: "User not found" });
-//     return;
-//   }
-
-//   if (user.password !== password) {
-//     res.status(400).json({ status: 400, data: "Incorrect Password" });
-//   } else {
-//     res.status(200).json({ status: 200, data: "Successful login" });
-//   }
-// };
-
 const userSignUp = async (req, res) => {
   const db = req.app.locals.client.db("Recipe-App");
 
   const { firstname, lastname, username, email, password } = req.body;
-  // const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
   try {
     const query = { _id: req.body.email };
@@ -105,7 +85,7 @@ const getUrl = async (req, res) => {
   try {
     const { url } = req.body;
     let recipe = await recipeScraper(url);
-    console.log(recipe);
+    // console.log(recipe);
     res.status(200).json({ status: 200, data: recipe });
   } catch (error) {
     res.status(400).json({ status: 400, data: "Import failed" });
@@ -113,39 +93,38 @@ const getUrl = async (req, res) => {
 };
 
 const newRecipe = async (req, res) => {
-  if (!recipe) {
+  const db = req.app.locals.client.db("Recipe-App");
+
+  const { recipe } = req.body;
+
+  if (recipe) {
     const addRecipe = {
       id: uuidv4(),
-      name: name,
-      description: description,
-      ingredients: ingredients,
-      instructions: instructions,
-      tags: tags,
-      prep: prep,
-      total: total,
-      servings: servings,
+      name: recipe.name,
+      description: recipe.description,
+      ingredients: recipe.ingredients,
+      instructions: recipe.instructions,
+      tags: recipe.tags,
+      prep: recipe.prep,
+      total: recipe.total,
+      servings: recipe.servings,
     };
 
     await db
       .collection("Users")
-      .updateOne({ _id: userId }, { $push: addRecipe });
+      .updateOne(
+        { username: req.body.userId },
+        { $push: { recipes: addRecipe } }
+      );
 
     res.status(200).json({
       status: 200,
       data: req.body,
-      message: "User added",
+      message: "Recipe added",
     });
   } else {
-    res.status(400).json({ status: 400, data: "User not added" });
+    res.status(400).json({ status: 400, data: "Recipe not added" });
   }
-  // } catch (err) {
-  //   console.log(err);
-  //   res.status(500).json({
-  //     status: 500,
-  //     data: err,
-  //     message: "Something went wrong",
-  //   });
-  // }
 };
 
 module.exports = {

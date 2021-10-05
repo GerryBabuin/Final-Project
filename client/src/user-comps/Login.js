@@ -40,12 +40,10 @@ const SignIn = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log("user login", data);
         if (data.status === 200) {
           setLoggedIn(true);
-          console.log("Login", data);
-          window.sessionStorage.setItem("user", data.data.username);
-          // window.sessionStorage.setItem("password", data.data.password);
-          history.push("users/recipes/:id");
+          window.sessionStorage.setItem("user", data.data);
         } else {
           alert("User doesn't exist");
         }

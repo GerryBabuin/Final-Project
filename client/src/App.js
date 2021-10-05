@@ -1,6 +1,6 @@
 // import logo from "./logo.svg";
 import "./main.css";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
 import HomePage from "./Homepage";
@@ -14,30 +14,10 @@ import Import from "./recipe-comps/ImportUrl";
 import NewRecipe from "./recipe-comps/NewRecipe";
 
 function App() {
-  // const [user, setUser] = useState();
-
-  // const getUserData = () => {
-  //   return fetch("/users/me")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data.data) {
-  //         setUser(data.data);
-  //         console.log(data.data, "user");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error", error);
-  //     });
-  // };
-
-  // useEffect(() => {
-  //   getUserData();
-  // }, []);
-
   return (
     <BrowserRouter>
       <Header />
-      {/* user={user} setUser={setUser} */}
+
       <Switch>
         <Route exact path="/">
           <HomePage />
@@ -62,7 +42,6 @@ function App() {
         </Route>
         <Route path="/signin">
           <Login />
-          {/* getUserData={getUserData} */}
         </Route>
       </Switch>
       <Footer />
