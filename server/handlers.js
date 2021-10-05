@@ -2,30 +2,55 @@
 
 const { v4: uuidv4 } = require("uuid");
 const recipeScraper = require("recipe-scraper");
+const bcrypt = require("bcrypt");
 
 const signIn = async (req, res) => {
-  const { username, password } = user;
+  try {
+    const { username, password } = req.body;
 
-  const db = req.app.locals.client.db("Recipe-App");
+    const db = req.app.locals.client.db("Recipe-App");
 
-  const user = await db.collection("Users").findOne({ username });
+    const user = await db.collection("Users").findOne({ username });
 
-  if (!user) {
-    res.status(400).json({ status: 400, data: "User not found" });
-    return;
-  }
+    if (!user) {
+      res.status(400).json({ status: 400, data: "User not found" });
+      return;
+    }
 
-  if (user.password !== password) {
-    res.status(400).json({ status: 400, data: "Incorrect Password" });
-  } else {
-    res.status(200).json({ status: 200, data: "Successful login" });
+    if (user.password !== password) {
+      res.status(400).json({ status: 400, data: "Incorrect Password" });
+    } else {
+      res.status(200).json({ status: 200, data: "Successful login" });
+    }
+  } catch {
+    res.status(400).json({ status: 400, data: "Login Failed" });
   }
 };
+
+// const signIn = async (req, res) => {
+//   const { username, password } = user;
+
+//   const db = req.app.locals.client.db("Recipe-App");
+
+//   const user = await db.collection("Users").findOne({ username });
+
+//   if (!user) {
+//     res.status(400).json({ status: 400, data: "User not found" });
+//     return;
+//   }
+
+//   if (user.password !== password) {
+//     res.status(400).json({ status: 400, data: "Incorrect Password" });
+//   } else {
+//     res.status(200).json({ status: 200, data: "Successful login" });
+//   }
+// };
 
 const userSignUp = async (req, res) => {
   const db = req.app.locals.client.db("Recipe-App");
 
   const { firstname, lastname, username, email, password } = req.body;
+  // const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
   try {
     const query = { _id: req.body.email };

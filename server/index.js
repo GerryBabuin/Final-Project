@@ -28,23 +28,21 @@ const app = express()
 
   .use(express.static("public"))
 
-  // USER SECTION
-
   // create a new user
   .post("/users/signup", userSignUp)
 
   // user login endpoint
-  .post("/users/me", signIn)
+  .post("/users/signin", signIn)
 
   // RECIPE SECTION
 
-  // get url for scraping
-  .get("users/me/recipes", getAllRecipes)
+  // get all recipes
+  .get("users/recipes/:id", getAllRecipes)
 
   // get url for scraping
   .post("/recipes/url", getUrl)
 
-  .post("/users/me/recipes", newRecipe)
+  .post("/users/recipes/:id", newRecipe)
 
   // this is our catch all endpoint.
   .get("*", (req, res) => {
@@ -71,4 +69,3 @@ const setup = async () => {
 };
 
 setup();
-// app.listen(8000, () => console.log(`Listening on port 8000`));

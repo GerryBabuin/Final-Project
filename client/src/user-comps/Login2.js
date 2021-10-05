@@ -21,31 +21,27 @@ const SignIn = () => {
   // doesn't allow user to go the signin page after logging in
   useEffect(() => {
     if (user) {
-      history.push("users/recipes/:id");
+      history.push("users/me/recipes");
     }
   }, [history, user]);
 
   // submits/posts the info to server
   const handleSubmit = async (e) => {
     e.preventDefault();
-    e.stopPropagation();
-
-    fetch("/users/signin", {
+    fetch("/users/me", {
       method: "POST",
-      body: JSON.stringify(formData),
       headers: {
-        Accept: "application/json",
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(formData),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
           setLoggedIn(true);
-          console.log("Login", data);
-          window.sessionStorage.setItem("user", data.data.username);
+          // window.sessionStorage.setItem("user", data.data.username);
           // window.sessionStorage.setItem("password", data.data.password);
-          history.push("users/recipes/:id");
+          history.push("/");
         } else {
           alert("User doesn't exist");
         }
@@ -69,7 +65,6 @@ const SignIn = () => {
             onChange={(e) => {
               setFormData({ ...formData, username: e.target.value });
             }}
-            required
           />
 
           <input
@@ -79,7 +74,6 @@ const SignIn = () => {
             onChange={(e) => {
               setFormData({ ...formData, password: e.target.value });
             }}
-            required
           />
 
           <div>

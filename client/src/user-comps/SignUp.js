@@ -16,9 +16,9 @@ const SignUp = () => {
 
   const history = useHistory();
 
-  const handleClick = (ev) => {
-    ev.preventDefault();
-    ev.stopPropagation();
+  const handleClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
     const data = {
       firstname: formData.firstname,
@@ -55,9 +55,9 @@ const SignUp = () => {
     formData.email.includes("@") &&
     formData.email.includes(".") &&
     formData.password !== "" &&
-    formData.password > 8 &&
-    formData.password2 !== "" &&
-    formData.password2 > 8 &&
+    formData.password.length > 8 &&
+    // formData.password2 !== "" &&
+    // formData.password2.length > 8 &&
     formData.password === formData.password2
   ) {
     // readyToSubmit = true;
@@ -79,6 +79,7 @@ const SignUp = () => {
             onChange={(ev) => {
               setFormData({ ...formData, firstname: ev.target.value });
             }}
+            required
           />
           <input
             type="text"
@@ -87,6 +88,7 @@ const SignUp = () => {
             onChange={(ev) => {
               setFormData({ ...formData, lastname: ev.target.value });
             }}
+            required
           />
           <input
             type="text"
@@ -95,6 +97,7 @@ const SignUp = () => {
             onChange={(ev) => {
               setFormData({ ...formData, username: ev.target.value });
             }}
+            required
           />
 
           <input
@@ -104,6 +107,7 @@ const SignUp = () => {
             onChange={(ev) => {
               setFormData({ ...formData, email: ev.target.value });
             }}
+            required
           />
 
           <input
@@ -113,6 +117,7 @@ const SignUp = () => {
             onChange={(ev) => {
               setFormData({ ...formData, password: ev.target.value });
             }}
+            required
           />
 
           <input
@@ -122,6 +127,7 @@ const SignUp = () => {
             onChange={(ev) => {
               setFormData({ ...formData, password2: ev.target.value });
             }}
+            required
           />
 
           <div>

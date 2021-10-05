@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
+import TextareaAutosize from "react-textarea-autosize";
 
 const NewRecipe = (props) => {
   const [recipe, setRecipe] = useState(null);
@@ -29,22 +30,11 @@ const NewRecipe = (props) => {
         //   alert("Recipe did not save.");
         // }
       });
+    postRecipe();
   };
 
   // POST "/user/:userId/receipes"
   // updateOne({ _id: userId }, { $push: { recipes: req.body } })
-
-  // $("textarea")
-  //   .each(function () {
-  //     this.setAttribute(
-  //       "style",
-  //       "height:" + this.scrollHeight + "px;overflow-y:hidden;"
-  //     );
-  //   })
-  //   .on("input", function () {
-  //     this.style.height = "auto";
-  //     this.style.height = this.scrollHeight + "px";
-  //   });
 
   if (!recipe) {
     return null;
@@ -64,10 +54,9 @@ const NewRecipe = (props) => {
 
   return (
     <div className="grid">
-      <div className="main-content">
-        {/* <h2>This looks yummy?</h2> */}
+      <div className="main-content-import">
         <form className="editRecipe">
-          <img src={image} alt={name} className="list-recipe-image" />
+          <img src={image} alt={name} className="import-recipe-image" />
           <label for="name">Name:</label>
           <input
             type="text"
@@ -78,7 +67,7 @@ const NewRecipe = (props) => {
               setRecipe({ ...recipe, name: e.target.value });
             }}
           />
-          <div className="Time">
+          <div className="time">
             <div>
               <label for="prep">Prep Time:</label>
               <input
@@ -120,7 +109,9 @@ const NewRecipe = (props) => {
             </div>
           </div>
           <label for="description">Description:</label>
-          <textarea
+          <TextareaAutosize
+            autoSize={true}
+            rows={2}
             id="Description"
             placeholder="Description"
             value={description}
@@ -129,7 +120,9 @@ const NewRecipe = (props) => {
             }}
           />
           <label for="ingredients">Ingredients:</label>
-          <textarea
+          <TextareaAutosize
+            autoSize={true}
+            rows={2}
             id="Ingredients"
             placeholder="Ingredients"
             value={ingredients}
@@ -138,7 +131,9 @@ const NewRecipe = (props) => {
             }}
           />
           <label for="instructions">Instructions:</label>
-          <textarea
+          <TextareaAutosize
+            autoSize={true}
+            rows={2}
             id="Instructions"
             placeholder="Instructions"
             value={instructions}
