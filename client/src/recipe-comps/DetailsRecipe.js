@@ -8,7 +8,7 @@ const DetailsRecipe = () => {
 
   const user = sessionStorage.getItem("user");
   const params = useParams();
-  const id = params.id;
+  const { userId, recipeId } = params;
   const history = useHistory();
 
   // create line breaks after commas
@@ -22,10 +22,10 @@ const DetailsRecipe = () => {
   // }
 
   useEffect(() => {
-    fetch("/users/onerecipe/:id")
+    fetch(`/users/recipes/${userId}/${recipeId}`)
       .then((res) => res.json())
       .then((data) => {
-        setRecipe(data);
+        setRecipe(data.data);
         console.log("Recipe Details", data);
       })
       .catch((err) => {
@@ -52,16 +52,18 @@ const DetailsRecipe = () => {
   return (
     <div className="grid">
       <div className="main-content-import">
-        <img
-          src={image}
-          alt={name}
-          className="import-recipe-image"
-          className="list-recipe-image"
-        />
+        <div className="list-image-container">
+          <img
+            src={image}
+            alt={name}
+            className="import-recipe-image"
+            // className="list-recipe-image"
+          />
+        </div>
 
         <h3 className="list-recipe-name">{name}</h3>
         <p className="list-recipe-description">{description}</p>
-        <div>
+        <div className="time-serving-container">
           <div className="list-recipe-description">{prep}</div>
           <div className="list-recipe-description">{total}</div>
           <div className="list-recipe-description">{servings}</div>

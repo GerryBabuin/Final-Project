@@ -6,11 +6,12 @@ import AddNew from "./images/addNew.svg";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const user = sessionStorage.getItem("user");
   return (
     <div className="footer">
       <div className="footer-content">
         <div className="footer-left">
-          <Link to="/recipes/:id">
+          <Link to={`/recipes/${user}`}>
             <button className="footer-button">
               <img src={Recipes} alt="Recipes" className="button-icons" />
               recipes

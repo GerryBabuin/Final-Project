@@ -27,8 +27,8 @@ function App() {
         <Route path="/recipes/:id">
           <Recipes user={user} />
         </Route>
-        <Route path="/onerecipe/:id">
-          <DetailsRecipe user={user} />
+        <Route path="/users/recipes/:userId/:recipeId">
+          <DetailsRecipe />
         </Route>
         <Route path="/addnew">
           <Import />

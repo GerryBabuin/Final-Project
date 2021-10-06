@@ -1,34 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 export default function Recipes() {
   const [totalRecipes, setTotalRecipes] = useState([]);
+  // const [recipeId, setRecipeId] = useState([]);
   const user = sessionStorage.getItem("user");
-
   const params = useParams();
-  const id = params.id;
-  console.log("id", id);
-  const history = useHistory();
+  const userId = params.id;
+  console.log("id", userId);
+  // const history = useHistory();
 
   useEffect(() => {
-    const path = `/users/recipes/${id}`;
+    const path = `/users/recipes/${user}`;
 
     fetch(path)
       .then((res) => res.json())
       .then((data) => {
-        setTotalRecipes(data.data);
-        console.log(data.data);
+        setTotalRecipes(data.data.recipes);
+        // setRecipeId(data.data.recipes.id);
+        console.log("Recipes page", data.data.recipes);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   }, []);
-
-  const handleClick = (e, _id) => {
-    e.preventDefault();
-    e.stopPropagation();
-    history.push(`/users/recipes/${id}`);
-  };
 
   return (
     <div className="grid">
@@ -38,17 +33,24 @@ export default function Recipes() {
           <div>
             {totalRecipes.map((recipe) => {
               return (
-                <div key={recipe.id} onClick={(e) => handleClick(e, recipe.id)}>
-                  <img
-                    src={recipe.image}
-                    alt={recipe.name}
-                    className="list-recipe-image"
-                  />
-                  <h3 className="list-recipe-name">{recipe.name}</h3>
-                  <p className="list-recipe-description">
-                    {recipe.description}
-                  </p>
-                </div>
+                <Link
+                  to={`/users/recipes/${userId}/${recipe.id}`}
+                  className="recipe-link"
+                >
+                  <div key={recipe.id}>
+                    <div className="list-image-container">
+                      <img
+                        src={recipe.image}
+                        alt={recipe.name}
+                        className="list-recipe-image"
+                      />
+                    </div>
+                    <h3 className="list-recipe-name">{recipe.name}</h3>
+                    <p className="list-recipe-description">
+                      {recipe.description}
+                    </p>
+                  </div>
+                </Link>
               );
             })}
           </div>

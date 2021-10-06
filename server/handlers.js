@@ -75,26 +75,33 @@ const getAllRecipes = async (req, res) => {
 
   const user = await db.collection("Users").findOne({ username: id });
 
-  const recipes = await db.collection("Recipes").find().toArray();
+  // const recipes = await db.collection("Users").find().toArray();
 
-  if (recipes.length) {
-    res.status(200).json({ status: 200, data: recipes });
+  if (user) {
+    res.status(200).json({ status: 200, data: user });
   } else {
     res.status(400).json({ status: 400, data: "No recipes were found" });
   }
 };
 
 const getOneRecipe = async (req, res) => {
-  const id = req.params.id;
-  console.log("Backend Req", req.params);
+  const { userId, recipeId } = req.params;
+
   const db = req.app.locals.client.db("Recipe-App");
 
-  const user = await db.collection("Users").findOne({ username: id });
+  let singleRecipe;
 
-  const recipes = await db.collection("Recipes").find().toArray();
+  // search for user
+  const user = await db.collection("Users").findOne({ username: userId });
 
-  if (recipes.length) {
-    res.status(200).json({ status: 200, data: recipes });
+  user.recipes.forEach((recipe) => {
+    if (recipe.id === recipeId) {
+      singleRecipe = recipe;
+    }
+  });
+
+  if (singleRecipe) {
+    res.status(200).json({ status: 200, data: singleRecipe });
   } else {
     res.status(400).json({ status: 400, data: "No recipes were found" });
   }
@@ -169,6 +176,7 @@ const newRecipe = async (req, res) => {
   if (recipe) {
     const addRecipe = {
       id: uuidv4(),
+      image: recipe.image,
       name: recipe.name,
       description: recipe.description,
       ingredients: recipe.ingredients,

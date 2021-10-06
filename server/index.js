@@ -46,13 +46,13 @@ const app = express()
   .get("/users/recipes/:id", getAllRecipes)
 
   // get individual user recipe
-  .get("/users/onerecipe/:id", getOneRecipe)
+  .get("/users/recipes/:userId/:recipeId", getOneRecipe)
 
   // edit individual user recipe
-  .delete("/users/onerecipe/:id", editRecipe)
+  // .delete("/users/onerecipe/:id", editRecipe)
 
   // delete individual user recipe
-  .delete("/users/onerecipe/:id", deleteRecipe)
+  // .delete("/users/onerecipe/:id", deleteRecipe)
 
   // get url for scraping
   .post("/recipes/url", getUrl)
