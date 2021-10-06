@@ -27,7 +27,7 @@ const NewRecipe = (props) => {
       .then((data) => {
         console.log("then", data);
         if (data.status === 200) {
-          history.push("/recipes/:id");
+          history.push("/users/recipes/:userId/:recipeId");
         } else {
           alert("Recipe did not save.");
         }

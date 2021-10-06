@@ -20,7 +20,7 @@ const signIn = async (req, res) => {
     if (user.password !== password) {
       res.status(400).json({ status: 400, message: "Incorrect Password" });
     } else {
-      res.status(200).json({ status: 200, data: user.username });
+      res.status(200).json({ status: 200, data: user });
     }
   } catch {
     res.status(400).json({ status: 400, data: "Login Failed" });
@@ -108,48 +108,87 @@ const getOneRecipe = async (req, res) => {
 };
 
 const editRecipe = async (req, res) => {
-  const id = req.params.id;
-  console.log("Backend Req", req.params);
+  const { userId, recipeId } = req.params;
+
   const db = req.app.locals.client.db("Recipe-App");
 
-  const user = await db.collection("Users").findOne({ username: id });
+  // let singleRecipe;
 
-  const recipes = await db.collection("Recipes").find().toArray();
+  // search for user
+  const user = await db.collection("Users").findOne({ username: userId });
 
-  if (recipes.length) {
-    res.status(200).json({ status: 200, data: recipes });
-  } else {
-    res.status(400).json({ status: 400, data: "No recipes were found" });
+  user.recipes.forEach((recipe) => {
+    if (recipe.id === recipeId) {
+      singleRecipe = recipe;
+    }
+  });
+
+  try {
+    const newRecipe = {
+      $set: {
+        name: req.body.name,
+        description: req.body.description,
+        ingredients: req.body.ingredients,
+        instructions: req.body.instructions,
+        tags: req.body.tags,
+        prep: req.body.prep,
+        total: req.body.total,
+        servings: req.body.servings,
+      },
+    };
+
+    const updateRecipe = { $set: { recipes: newRecipe } };
+
+    await db.collection("Users").updateOne(updateRecipe);
+
+    res.status(200).json({
+      status: 200,
+      message: "recipe updated",
+      ...newRecipe.$set,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ status: 500, message: err.message });
   }
 };
 
 const deleteRecipe = async (req, res) => {
-  const id = req.params.id;
-  console.log("Backend Req", req.params);
+  const { userId, recipeId } = req.params;
+
   const db = req.app.locals.client.db("Recipe-App");
 
-  const user = await db.collection("Users").findOne({ username: id });
+  let singleRecipe;
 
-  const recipes = await db.collection("Recipes").find().toArray();
+  // search for user
+  const user = await db.collection("Users").findOne({ username: userId });
 
-  if (recipes.length) {
-    res.status(200).json({ status: 200, data: recipes });
+  user.recipes.forEach((recipe) => {
+    if (recipe.id === recipeId) {
+      singleRecipe = recipe;
+    }
+  });
+
+  await db
+    .collection("Users")
+    .updateOne({ username: userId }, { $pull: { singleRecipe } });
+
+  if (singleRecipe) {
+    res.status(200).json({ status: 200, data: "Recipe deleted" });
   } else {
-    res.status(400).json({ status: 400, data: "No recipes were found" });
+    res.status(400).json({ status: 400, data: "Recipes was not deleted" });
   }
 };
 
 const findRecipes = async (req, res) => {
-  const id = req.params.id;
-  const query = req.params.query;
+  const { id, query } = req.params;
 
   const db = req.app.locals.client.db("Recipe-App");
 
-  const user = await db.collection("Users").findOne({ username: id });
+  // const user = await db.collection("Users").findOne({ username: userId });
 
-  const foundRecipes = await db.collection("Recipes").find({ query }).toArray();
+  const foundRecipes = await db.collection("Users").find({ query }).toArray();
 
-  if (recipes.length) {
+  if (foundRecipes.length) {
     res.status(200).json({ status: 200, data: foundRecipes });
   } else {
     res.status(400).json({ status: 400, data: "No recipes were found" });

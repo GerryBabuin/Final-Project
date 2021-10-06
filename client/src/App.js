@@ -1,6 +1,6 @@
 // import logo from "./logo.svg";
 import "./main.css";
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
 import HomePage from "./Homepage";
@@ -13,9 +13,12 @@ import Search from "./recipe-comps/Search";
 import Import from "./recipe-comps/ImportUrl";
 import NewRecipe from "./recipe-comps/NewRecipe";
 import DetailsRecipe from "./recipe-comps/DetailsRecipe";
+import EditRecipe from "./recipe-comps/EditRecipe";
 
 function App() {
   const user = sessionStorage.getItem("user");
+  const [signedInUser, setSignedInUser] = useState(null);
+
   return (
     <BrowserRouter>
       <Header />
@@ -30,23 +33,26 @@ function App() {
         <Route path="/users/recipes/:userId/:recipeId">
           <DetailsRecipe />
         </Route>
+        <Route path="/edit/recipe/:userId/:recipeId">
+          <EditRecipe />
+        </Route>
         <Route path="/addnew">
           <Import />
         </Route>
         <Route path="/newrecipe">
           <NewRecipe />
         </Route>
-        <Route path="/search">
-          <Search />
+        <Route path="/search/:userId">
+          <Search signedInUser={signedInUser} />
         </Route>
         <Route path="/tags">
-          <Tags />
+          <Tags signedInUser={signedInUser} />
         </Route>
         <Route path="/signup">
           <SignUp />
         </Route>
         <Route path="/signin">
-          <Login />
+          <Login setSignedInUser={setSignedInUser} />
         </Route>
       </Switch>
       <Footer />

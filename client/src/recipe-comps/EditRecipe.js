@@ -1,68 +1,160 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router";
+import TextareaAutosize from "react-textarea-autosize";
+import { useParams } from "react-router-dom";
 
-const NewRecipe = () => {
-  const [url, setUrl] = useState();
-  const [formData, setFormData] = useState();
+const EditRecipe = () => {
+  const [recipe, setRecipe] = useState(null);
 
-  const handleClick = (ev) => {
-    ev.preventDefault();
-    ev.stopPropagation();
-    fetch("/recipes/update/:id", {
-      method: "POST",
+  const user = sessionStorage.getItem("user");
+  const params = useParams();
+  const { userId, recipeId } = params;
+  const history = useHistory();
+
+  useEffect(() => {
+    fetch(`/users/recipes/${userId}/${recipeId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setRecipe(data.data);
+      });
+  }, []);
+
+  const saveRecipe = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const postRecipe = {
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
-    });
+      body: JSON.stringify({ recipe, userId: user }),
+    };
+
+    fetch(`/users/recipes/${userId}/${recipeId}`, postRecipe);
   };
 
+  if (!recipe) {
+    return null;
+  }
+
+  const {
+    name,
+    description,
+    ingredients,
+    instructions,
+    tags,
+    image,
+    prep,
+    total,
+    servings,
+  } = recipe;
+
   return (
-    <>
-      <div className="grid">
-        <div className="main-content">
-          <h2>What are we cooking today?</h2>
-          <form onSubmit={handleClick}>
-            <input
-              type="text"
-              placeholder="Name"
-              name="name"
-              onChange={(ev) => {
-                setUrl({ ...formData, url: ev.target.value });
-              }}
-            />
-            <input
-              type="text"
-              placeholder="description"
-              name="description"
-              onChange={(ev) => {
-                setUrl({ ...formData, url: ev.target.value });
-              }}
-            />
-            <input
-              type="text"
-              placeholder="ingredients"
-              name="ingredients"
-              onChange={(ev) => {
-                setUrl({ ...formData, url: ev.target.value });
-              }}
-            />
-            <input
-              type="text"
-              placeholder="instructions"
-              name="instructions"
-              onChange={(ev) => {
-                setUrl({ ...formData, url: ev.target.value });
-              }}
-            />
-            <button
-              onClick={handleClick}
-              className="home-login-button"
-              type="post"
-            >
-              Save
-            </button>
-          </form>
-        </div>
+    <div className="grid">
+      <div className="main-content-import">
+        <form className="editRecipe" onSubmit={saveRecipe}>
+          <div className="list-image-container">
+            <img src={image} alt={name} className="import-recipe-image" />
+          </div>
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => {
+              setRecipe({ ...recipe, name: e.target.value });
+            }}
+          />
+          <div className="time">
+            <div>
+              <label for="prep">Prep Time:</label>
+              <input
+                className="time"
+                type="text"
+                name="prep"
+                placeholder="Prep"
+                value={prep}
+                onChange={(e) => {
+                  setRecipe({ ...recipe, prep: e.target.value });
+                }}
+              />
+            </div>
+            <div>
+              <label for="total">Total Time:</label>
+              <input
+                className="time"
+                type="text"
+                name="total"
+                placeholder="Total"
+                value={total}
+                onChange={(e) => {
+                  setRecipe({ ...recipe, total: e.target.value });
+                }}
+              />
+            </div>
+            <div>
+              <label for="servings">Servings:</label>
+              <input
+                className="time"
+                type="text"
+                name="servings"
+                placeholder="Servings"
+                value={servings}
+                onChange={(e) => {
+                  setRecipe({ ...recipe, total: e.target.value });
+                }}
+              />
+            </div>
+          </div>
+          <label for="description">Description:</label>
+          <TextareaAutosize
+            autoSize={true}
+            rows={2}
+            name="description"
+            placeholder="Description"
+            value={description}
+            onChange={(e) => {
+              setRecipe({ ...recipe, description: e.target.value });
+            }}
+          />
+          <label for="ingredients">Ingredients:</label>
+          <TextareaAutosize
+            autoSize={true}
+            rows={2}
+            name="ingredients"
+            placeholder="Ingredients"
+            value={ingredients}
+            onChange={(e) => {
+              setRecipe({ ...recipe, ingredients: e.target.value });
+            }}
+          />
+          <label for="instructions">Instructions:</label>
+          <TextareaAutosize
+            autoSize={true}
+            rows={2}
+            name="instructions"
+            placeholder="Instructions"
+            value={instructions}
+            onChange={(e) => {
+              setRecipe({ ...recipe, instructions: e.target.value });
+            }}
+          />
+          <label for="tags">Tags:</label>
+          <input
+            type="text"
+            name="tags"
+            placeholder="Tags"
+            value={tags}
+            onChange={(e) => {
+              setRecipe({ ...recipe, tags: e.target.value });
+            }}
+          />
+          <button type="submit" className="home-login-button">
+            Save
+          </button>
+        </form>
       </div>
-    </>
+    </div>
   );
 };
 
-export default NewRecipe;
+export default EditRecipe;

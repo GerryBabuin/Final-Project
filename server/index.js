@@ -49,10 +49,10 @@ const app = express()
   .get("/users/recipes/:userId/:recipeId", getOneRecipe)
 
   // edit individual user recipe
-  // .delete("/users/onerecipe/:id", editRecipe)
+  .delete("/users/recipes/:userId/:recipeId", deleteRecipe)
 
   // delete individual user recipe
-  // .delete("/users/onerecipe/:id", deleteRecipe)
+  .put("/users/recipes/:userId/:recipeId", editRecipe)
 
   // get url for scraping
   .post("/recipes/url", getUrl)
@@ -61,7 +61,7 @@ const app = express()
   .post("/users/recipes", newRecipe)
 
   // get add new recipe
-  .post("/search", findRecipes)
+  .get("/search/:id/:query", findRecipes)
 
   // this is our catch all endpoint.
   .get("*", (req, res) => {

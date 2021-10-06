@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import Tomato from "../images/mockup-graphics-lDhhUl3Gp3Q-unsplash.png";
 
-const SignIn = () => {
+const SignIn = ({ setSignedInUser }) => {
   // set state from the event input
   const initialState = {
     username: "",
@@ -21,7 +21,6 @@ const SignIn = () => {
   // doesn't allow user to go the signin page after logging in
   useEffect(() => {
     if (user) {
-      history.push("/recipes/:id");
     }
   }, [history, user]);
 
@@ -40,10 +39,12 @@ const SignIn = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("user login", data);
         if (data.status === 200) {
           setLoggedIn(true);
-          window.sessionStorage.setItem("user", data.data);
+          setSignedInUser(data.data);
+          console.log("setSignedInUser", data.data);
+          window.sessionStorage.setItem("user", data.data.username);
+          history.push(`/recipes/${data.data.username}`);
         } else {
           alert("User doesn't exist");
         }

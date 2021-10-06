@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import TextareaAutosize from "react-textarea-autosize";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const DetailsRecipe = () => {
   const [recipe, setRecipe] = useState(null);
@@ -62,27 +62,38 @@ const DetailsRecipe = () => {
         </div>
 
         <h3 className="list-recipe-name">{name}</h3>
-        <p className="list-recipe-description">{description}</p>
+        <p className="edit-recipe-description">{description}</p>
         <div className="time-serving-container">
-          <div className="list-recipe-description">{prep}</div>
-          <div className="list-recipe-description">{total}</div>
-          <div className="list-recipe-description">{servings}</div>
+          <div className="edit-recipe-time">
+            <div className="edit-recipe-label">Prep</div>
+            {prep}
+          </div>
+          <div className="edit-recipe-time">
+            <div className="edit-recipe-label">Total</div>
+            {total}
+          </div>
+          <div className="edit-recipe-time">
+            <div className="edit-recipe-label">Servings</div>
+            {servings}
+          </div>
         </div>
-        <div id="ingredients" className="list-recipe-description">
+        <div id="ingredients" className="edit-recipe-description">
           {ingredients}
         </div>
-        <div id="instructions" className="list-recipe-description">
+        <div id="instructions" className="edit-recipe-description">
           {instructions}
         </div>
-        <div id="tags" className="list-recipe-description">
+        <div id="tags" className="edit-recipe-description">
           {tags}
         </div>
 
         <div className="details-buttons">
-          <button className="edit-button">Edit</button>
-          <button className="edit-button">Delete</button>
+          <Link to={`/edit/recipe/${userId}/${recipeId}`}>
+            <button className="clear-button">Edit</button>
+          </Link>
+          <button className="clear-button">Delete</button>
+          <button className="clear-button">Back</button>
         </div>
-        <button className="home-login-button">Back</button>
       </div>
     </div>
   );

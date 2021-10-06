@@ -17,7 +17,7 @@ const Footer = () => {
               recipes
             </button>
           </Link>
-          <Link to="/search">
+          <Link to={`/search/${user}`}>
             <button className="footer-button">
               <img src={Search} alt="Search" className="button-icons" />
               search

@@ -1,36 +1,49 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-export default function Search() {
+export default function Search({ signedInUser }) {
   const [query, setQuery] = useState("");
+  const [recipes, setRecipes] = useState([]);
+  const user = sessionStorage.getItem("user");
   const params = useParams();
-  const id = params.id;
+  const { userId } = params;
   const resetValue = () => {
     setQuery("");
   };
+  console.log("Search", query);
   useEffect(() => {
-    const path = `/search`;
-    console.log("path", path);
-    fetch(path)
+    fetch(`/search/${userId}/${query}`)
       .then((res) => res.json())
       .then((data) => {
-        setQuery(data.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
+        setRecipes(data.data);
       });
-    setQuery([]);
-  }, []);
+  }, [query]);
 
+  // const search = (e) => {
+  //   const postQuery = {
+  //     method: "GET",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({ query }),
+  //   };
+  //   fetch("/search", postQuery)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setQuery(data.data);
+  //       console.log("Search", query);
+  //     });
+  // };
+  // search();
   const handleSelect = (e) => {
     setQuery(e.target.value);
   };
-  const handelClick = (e) => {};
+  const handleClick = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className="grid">
       <div className="main-content">
         <h2>Search your recipes</h2>
-        <form onclick={handelClick}>
+        <form onClick={handleClick}>
           <button type="reset" onClick={resetValue} className="clear-button">
             Clear
           </button>

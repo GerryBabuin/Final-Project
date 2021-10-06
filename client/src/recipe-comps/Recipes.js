@@ -36,20 +36,19 @@ export default function Recipes() {
                 <Link
                   to={`/users/recipes/${userId}/${recipe.id}`}
                   className="recipe-link"
+                  key={recipe.id}
                 >
-                  <div key={recipe.id}>
-                    <div className="list-image-container">
-                      <img
-                        src={recipe.image}
-                        alt={recipe.name}
-                        className="list-recipe-image"
-                      />
-                    </div>
-                    <h3 className="list-recipe-name">{recipe.name}</h3>
-                    <p className="list-recipe-description">
-                      {recipe.description}
-                    </p>
+                  <div className="list-image-container">
+                    <img
+                      src={recipe.image}
+                      alt={recipe.name}
+                      className="list-recipe-image"
+                    />
                   </div>
+                  <h3 className="list-recipe-name">{recipe.name}</h3>
+                  <p className="list-recipe-description">
+                    {recipe.description}
+                  </p>
                 </Link>
               );
             })}
