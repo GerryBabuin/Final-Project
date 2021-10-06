@@ -9,7 +9,7 @@ export default function Search() {
     setQuery("");
   };
   useEffect(() => {
-    const path = `/users/recipes/${id}`;
+    const path = `/search`;
     console.log("path", path);
     fetch(path)
       .then((res) => res.json())
@@ -25,12 +25,12 @@ export default function Search() {
   const handleSelect = (e) => {
     setQuery(e.target.value);
   };
-
+  const handelClick = (e) => {};
   return (
     <div className="grid">
       <div className="main-content">
         <h2>Search your recipes</h2>
-        <form>
+        <form onclick={handelClick}>
           <button type="reset" onClick={resetValue} className="clear-button">
             Clear
           </button>
@@ -44,26 +44,9 @@ export default function Search() {
               }
             }}
           />
-
-          {query.length < 3 ? (
-            <ul style={{ display: "none" }}></ul>
-          ) : (
-            <ul style={{ display: "block" }} tabindex="-1">
-              {query.map((recipe) => {
-                return (
-                  <li
-                    key={recipe.id}
-                    onClick={() => handleSelect(recipe.title)}
-                  >
-                    <span>
-                      {recipe.name.slice(0, query.length)}
-                      <span>{recipe.name.slice(query.length)}</span>
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+          <button type="submit" className="home-login-button">
+            Submit
+          </button>
         </form>
       </div>
     </div>

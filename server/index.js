@@ -20,6 +20,10 @@ const {
   getAllRecipes,
   getUrl,
   newRecipe,
+  findRecipes,
+  getOneRecipe,
+  editRecipe,
+  deleteRecipe,
 } = require("./handlers.js");
 
 const app = express()
@@ -38,13 +42,26 @@ const app = express()
 
   // RECIPE SECTION
 
-  // get all recipes
+  // get all user recipes
   .get("/users/recipes/:id", getAllRecipes)
+
+  // get individual user recipe
+  .get("/users/onerecipe/:id", getOneRecipe)
+
+  // edit individual user recipe
+  .delete("/users/onerecipe/:id", editRecipe)
+
+  // delete individual user recipe
+  .delete("/users/onerecipe/:id", deleteRecipe)
 
   // get url for scraping
   .post("/recipes/url", getUrl)
 
+  // get add new recipe
   .post("/users/recipes", newRecipe)
+
+  // get add new recipe
+  .post("/search", findRecipes)
 
   // this is our catch all endpoint.
   .get("*", (req, res) => {

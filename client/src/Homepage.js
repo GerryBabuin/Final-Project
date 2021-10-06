@@ -23,9 +23,9 @@ const HomePage = () => {
           alt=""
         />
         <h1>welcome</h1>
-        <p>Home for your family treasures</p>
+        <p>a home for your family treasures</p>
         <p>
-          Not a part of our family?
+          not a part of our family?
           <Link to="/signup" className="join-link">
             <button className="home-login-button">join us</button>
           </Link>

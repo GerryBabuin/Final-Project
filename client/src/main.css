@@ -345,4 +345,27 @@ label {
 .username {
   color: var(--dark-red);
   font-weight: bold;
+  margin-top: 17px;
+}
+.details-buttons {
+  display: inline-flex;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+.edit-button {
+  border: none;
+  background: var(--orange);
+  color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 5px 20px;
+  border-radius: 12px;
+  font-size: 20px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  line-height: 1.6;
+  margin-left: 2.5rem;
+  border-top: 2px solid var(--yellow);
+  border-bottom: 2px solid var(--yellow);
 }

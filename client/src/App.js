@@ -12,6 +12,7 @@ import Tags from "./recipe-comps/Tags";
 import Search from "./recipe-comps/Search";
 import Import from "./recipe-comps/ImportUrl";
 import NewRecipe from "./recipe-comps/NewRecipe";
+import DetailsRecipe from "./recipe-comps/DetailsRecipe";
 
 function App() {
   const user = sessionStorage.getItem("user");
@@ -25,6 +26,9 @@ function App() {
         </Route>
         <Route path="/recipes/:id">
           <Recipes user={user} />
+        </Route>
+        <Route path="/onerecipe/:id">
+          <DetailsRecipe user={user} />
         </Route>
         <Route path="/addnew">
           <Import />

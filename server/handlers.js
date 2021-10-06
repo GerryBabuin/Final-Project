@@ -84,6 +84,71 @@ const getAllRecipes = async (req, res) => {
   }
 };
 
+const getOneRecipe = async (req, res) => {
+  const id = req.params.id;
+  console.log("Backend Req", req.params);
+  const db = req.app.locals.client.db("Recipe-App");
+
+  const user = await db.collection("Users").findOne({ username: id });
+
+  const recipes = await db.collection("Recipes").find().toArray();
+
+  if (recipes.length) {
+    res.status(200).json({ status: 200, data: recipes });
+  } else {
+    res.status(400).json({ status: 400, data: "No recipes were found" });
+  }
+};
+
+const editRecipe = async (req, res) => {
+  const id = req.params.id;
+  console.log("Backend Req", req.params);
+  const db = req.app.locals.client.db("Recipe-App");
+
+  const user = await db.collection("Users").findOne({ username: id });
+
+  const recipes = await db.collection("Recipes").find().toArray();
+
+  if (recipes.length) {
+    res.status(200).json({ status: 200, data: recipes });
+  } else {
+    res.status(400).json({ status: 400, data: "No recipes were found" });
+  }
+};
+
+const deleteRecipe = async (req, res) => {
+  const id = req.params.id;
+  console.log("Backend Req", req.params);
+  const db = req.app.locals.client.db("Recipe-App");
+
+  const user = await db.collection("Users").findOne({ username: id });
+
+  const recipes = await db.collection("Recipes").find().toArray();
+
+  if (recipes.length) {
+    res.status(200).json({ status: 200, data: recipes });
+  } else {
+    res.status(400).json({ status: 400, data: "No recipes were found" });
+  }
+};
+
+const findRecipes = async (req, res) => {
+  const id = req.params.id;
+  const query = req.params.query;
+
+  const db = req.app.locals.client.db("Recipe-App");
+
+  const user = await db.collection("Users").findOne({ username: id });
+
+  const foundRecipes = await db.collection("Recipes").find({ query }).toArray();
+
+  if (recipes.length) {
+    res.status(200).json({ status: 200, data: foundRecipes });
+  } else {
+    res.status(400).json({ status: 400, data: "No recipes were found" });
+  }
+};
+
 // SCRAPER - enter a supported recipe url as a parameter - returns a promise
 const getUrl = async (req, res) => {
   try {
@@ -137,4 +202,8 @@ module.exports = {
   getUrl,
   userSignUp,
   newRecipe,
+  findRecipes,
+  getOneRecipe,
+  editRecipe,
+  deleteRecipe,
 };

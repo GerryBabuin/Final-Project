@@ -4,11 +4,26 @@ import { NavLink } from "react-router-dom";
 const Header = () => {
   const user = sessionStorage.getItem("user");
 
+  const handleClick = (ev) => {
+    ev.preventDefault();
+    ev.stopPropagation();
+    sessionStorage.clear();
+    window.location.href = "/signin";
+  };
+
   return (
     <div className="header">
-      <NavLink exact to="/" className="header-menu-links">
-        home
-      </NavLink>
+      <div>
+        {user ? (
+          <div className="header-menu-links" onClick={handleClick}>
+            log out
+          </div>
+        ) : (
+          <NavLink to="/" className="header-menu-links">
+            home
+          </NavLink>
+        )}
+      </div>
 
       <div>
         {user ? (
