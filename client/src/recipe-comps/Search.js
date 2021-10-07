@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Search({ signedInUser }) {
@@ -28,7 +28,7 @@ export default function Search({ signedInUser }) {
       <div className="main-content">
         <h2>Search your recipes</h2>
         <form onSubmit={handleSubmit}>
-          <button type="reset" onClick={resetValue} className="clear-button">
+          <button type="reset" onClick={resetValue} className="clear-form">
             Clear
           </button>
           <input

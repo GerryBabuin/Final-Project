@@ -158,7 +158,9 @@ const EditRecipe = () => {
             Save
           </button>
         </form>
-        <button onClick={() => history.goBack()}>Back</button>
+        <button onClick={() => history.goBack()} className="clear-button">
+          Back
+        </button>
         <div style={{ display: "block", height: "50px" }}></div>
       </div>
     </div>

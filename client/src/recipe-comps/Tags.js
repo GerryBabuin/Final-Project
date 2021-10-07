@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 const GetTags = ({ signedInUser }) => {
   const [data, setData] = useState([]);
   const [tags, setTags] = useState([]);
-  const [time, setTime] = useState([]);
+  // const [time, setTime] = useState([]);
 
   function handleClick(tags) {
     setTags(tags);
@@ -21,7 +20,7 @@ const GetTags = ({ signedInUser }) => {
       .then((res) => res.json())
       .then((data) => {
         setData(data.data);
-        console.log("Tags", tags);
+        // console.log("Tags", tags);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -61,9 +60,6 @@ const GetTags = ({ signedInUser }) => {
           >
             Suprise Me
           </button>
-          {/* <Link to="/search">
-            <button className="categories">Search</button>
-          </Link> */}
         </div>
       </div>
     </div>

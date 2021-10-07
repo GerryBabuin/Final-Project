@@ -176,6 +176,26 @@ p {
   text-align: right;
   border-top: 2px solid var(--yellow);
   border-bottom: 2px solid var(--yellow);
+  /* margin-left: auto; */
+  margin-right: 25px;
+}
+.clear-form {
+  display: block;
+  border: none;
+  background: var(--orange);
+  color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  line-height: 1.6;
+  text-align: right;
+  border-top: 2px solid var(--yellow);
+  border-bottom: 2px solid var(--yellow);
   margin-left: auto;
   margin-right: auto;
 }
@@ -198,7 +218,6 @@ p {
   margin-bottom: 10px;
   margin-right: 10px;
   font-size: 0.75rem;
-  /* font-size: 10px; */
   letter-spacing: 1px;
   font-weight: bold;
   line-height: 1.6;

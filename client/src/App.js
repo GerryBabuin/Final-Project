@@ -1,4 +1,3 @@
-// import logo from "./logo.svg";
 import "./main.css";
 import React, { useState } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";

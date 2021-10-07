@@ -69,7 +69,7 @@ const SignUp = () => {
         <h2>We are very happy you've decided to join our family</h2>
         <p>Please provide the following info:</p>
         <form onSubmit={handleClick}>
-          <button className="clear-button" type="reset">
+          <button className="clear-form" type="reset">
             Clear Form
           </button>
           <input

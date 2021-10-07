@@ -4,6 +4,7 @@ const { v4: uuidv4 } = require("uuid");
 const recipeScraper = require("recipe-scraper");
 const bcrypt = require("bcrypt");
 
+// signs user in
 const signIn = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -27,6 +28,7 @@ const signIn = async (req, res) => {
   }
 };
 
+// user sign up
 const userSignUp = async (req, res) => {
   const db = req.app.locals.client.db("Recipe-App");
 
@@ -68,14 +70,13 @@ const userSignUp = async (req, res) => {
   }
 };
 
+// get all user's recipes
 const getAllRecipes = async (req, res) => {
   const id = req.params.id;
 
   const db = req.app.locals.client.db("Recipe-App");
 
   const user = await db.collection("Users").findOne({ username: id });
-
-  // const recipes = await db.collection("Users").find().toArray();
 
   if (user) {
     res.status(200).json({ status: 200, data: user });
@@ -84,6 +85,7 @@ const getAllRecipes = async (req, res) => {
   }
 };
 
+//get one user recipe
 const getOneRecipe = async (req, res) => {
   const { userId, recipeId } = req.params;
 
@@ -91,7 +93,6 @@ const getOneRecipe = async (req, res) => {
 
   let singleRecipe;
 
-  // search for user
   const user = await db.collection("Users").findOne({ username: userId });
 
   user.recipes.forEach((recipe) => {
@@ -107,6 +108,7 @@ const getOneRecipe = async (req, res) => {
   }
 };
 
+// edit recipe
 const editRecipe = async (req, res) => {
   const { userId, recipeId } = req.params;
 
@@ -168,6 +170,7 @@ const editRecipe = async (req, res) => {
   }
 };
 
+// delete a single recipe
 const deleteRecipe = async (req, res) => {
   const { userId, recipeId } = req.params;
 
@@ -175,14 +178,6 @@ const deleteRecipe = async (req, res) => {
 
   let singleRecipe;
 
-  // search for user
-  // const user = await db.collection("Users").findOne({ username: userId });
-
-  // user.recipes.forEach((recipe) => {
-  //   if (recipe.id === recipeId) {
-  //     singleRecipe = recipe;
-  //   }
-  // });
   const updateRecipe = {
     $pull: { recipes: { id: recipeId } },
   };
@@ -198,6 +193,7 @@ const deleteRecipe = async (req, res) => {
   }
 };
 
+// searches user's recipes
 const findRecipes = async (req, res) => {
   const { id, query } = req.params;
   const foundRecipes = [];
@@ -217,13 +213,11 @@ const findRecipes = async (req, res) => {
   if (foundRecipes.length) {
     res.status(200).json({ status: 200, data: foundRecipes });
   } else {
-    res
-      .status(400)
-      .json({
-        status: 400,
-        message: "No recipes were found",
-        data: foundRecipes,
-      });
+    res.status(400).json({
+      status: 400,
+      message: "No recipes were found",
+      data: foundRecipes,
+    });
   }
 };
 
@@ -239,6 +233,7 @@ const getUrl = async (req, res) => {
   }
 };
 
+// add a new recipe
 const newRecipe = async (req, res) => {
   const db = req.app.locals.client.db("Recipe-App");
 

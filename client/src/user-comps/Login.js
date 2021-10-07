@@ -10,7 +10,6 @@ const SignIn = ({ setSignedInUser }) => {
   };
 
   const [formData, setFormData] = useState(initialState);
-  const [loggedIn, setLoggedIn] = useState(false);
 
   // retrieving the user data from session storage
   const user = sessionStorage.getItem("user");
@@ -40,7 +39,6 @@ const SignIn = ({ setSignedInUser }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
-          setLoggedIn(true);
           setSignedInUser(data.data);
           window.sessionStorage.setItem("user", data.data.username);
           history.push(`/recipes/${data.data.username}`);
@@ -50,11 +48,6 @@ const SignIn = ({ setSignedInUser }) => {
       });
   };
 
-  // let readyToSubmit = false;
-
-  if (formData.username !== "" && formData.password !== "") {
-    // readyToSubmit = true;
-  }
   return (
     <div className="grid">
       <div className="main-content">
