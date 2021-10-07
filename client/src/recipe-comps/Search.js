@@ -47,9 +47,9 @@ export default function Search({ signedInUser }) {
         </form>
         <div>
           {!recipes ? (
-            <p>Select an ingredient</p>
+            <p>enter an ingredient</p>
           ) : !recipes.length ? (
-            <p>No receipes found</p>
+            <p>no receipes found</p>
           ) : (
             <ul>
               {recipes.map((recipe) => (
@@ -58,7 +58,7 @@ export default function Search({ signedInUser }) {
                   className="recipe-link"
                   key={recipe.id}
                 >
-                  <li>{recipe.name}</li>
+                  <li className="list-recipe-name">{recipe.name}</li>
                 </Link>
               ))}
             </ul>

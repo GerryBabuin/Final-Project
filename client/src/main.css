@@ -411,3 +411,13 @@ label {
   border: none;
   text-decoration: none;
 }
+ul {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin-top: 50px;
+}
+li {
+  margin-bottom: 10px;
+}
