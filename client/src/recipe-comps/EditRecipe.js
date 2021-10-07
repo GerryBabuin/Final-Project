@@ -159,6 +159,7 @@ const EditRecipe = () => {
             Save
           </button>
         </form>
+        <button onClick={() => history.goBack()}>Back</button>
         <div style={{ display: "block", height: "50px" }}></div>
       </div>
     </div>

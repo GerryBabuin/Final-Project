@@ -91,8 +91,8 @@ const DetailsRecipe = () => {
             <button className="clear-button">Edit</button>
           </Link>
           <button className="clear-button">Delete</button>
-          <button className="clear-button">Back</button>
         </div>
+        <button onClick={() => history.goBack()}>Back</button>
         <div style={{ display: "block", height: "50px" }}></div>
       </div>
     </div>
