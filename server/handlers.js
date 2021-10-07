@@ -200,28 +200,30 @@ const deleteRecipe = async (req, res) => {
 
 const findRecipes = async (req, res) => {
   const { id, query } = req.params;
-  // console.log(req.params);
-  // let userId = id;
+  const foundRecipes = [];
 
   const db = req.app.locals.client.db("Recipe-App");
 
   const user = await db.collection("Users").findOne({ username: id });
 
-  await user.recipes.forEach((recipe) => {
-    if (recipe.ingredients === query) {
-      res.status(200).json({ status: 200, data: recipe });
-    }
+  user.recipes.forEach((recipe) => {
+    recipe.ingredients.forEach((ingredient) => {
+      if (ingredient.toLowerCase().includes(query.toLowerCase())) {
+        foundRecipes.push(recipe);
+      }
+    });
   });
 
-  // const foundRecipes = await db
-  //   .collection("Users")
-  //   .find({ username: id, "recipes.ingredients": query })
-  //   .toArray();
-
-  if (foundRecipes) {
+  if (foundRecipes.length) {
     res.status(200).json({ status: 200, data: foundRecipes });
   } else {
-    res.status(400).json({ status: 400, data: "No recipes were found" });
+    res
+      .status(400)
+      .json({
+        status: 400,
+        message: "No recipes were found",
+        data: foundRecipes,
+      });
   }
 };
 

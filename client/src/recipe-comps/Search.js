@@ -1,35 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Search({ signedInUser }) {
   const [query, setQuery] = useState("");
-  const [recipes, setRecipes] = useState([]);
+  const [recipes, setRecipes] = useState(null);
   const user = sessionStorage.getItem("user");
-  const params = useParams();
-  const { userId } = params;
+
   const resetValue = () => {
     setQuery("");
   };
 
-  useEffect(() => {
-    fetch(`/search/${userId}/${query}`)
-      .then((res) => res.json())
-      .then((result) => {
-        setRecipes(result);
-      });
-  }, []);
-
   const handleSelect = (e) => {
     setQuery(e.target.value);
   };
-  const handleClick = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    fetch(`/search/${user}/${query}`)
+      .then((res) => res.json())
+      .then((result) => {
+        setRecipes(result.data);
+        console.log(result);
+      });
   };
+
   return (
     <div className="grid">
       <div className="main-content">
         <h2>Search your recipes</h2>
-        <form onClick={handleClick}>
+        <form onSubmit={handleSubmit}>
           <button type="reset" onClick={resetValue} className="clear-button">
             Clear
           </button>
@@ -47,20 +45,25 @@ export default function Search({ signedInUser }) {
             Submit
           </button>
         </form>
-        {/* <div>
-          {!recipes ? (<p>one moment please</p>) : (
-              <ul>     
+        <div>
+          {!recipes ? (
+            <p>Select an ingredient</p>
+          ) : !recipes.length ? (
+            <p>No receipes found</p>
+          ) : (
+            <ul>
               {recipes.map((recipe) => (
                 <Link
-                  to={`/users/recipes/${userId}/${recipe.id}`}
+                  to={`/users/recipes/${user}/${recipe.id}`}
                   className="recipe-link"
                   key={recipe.id}
                 >
                   <li>{recipe.name}</li>
                 </Link>
-              ))})
+              ))}
             </ul>
-         </div> */}
+          )}
+        </div>
       </div>
     </div>
   );
