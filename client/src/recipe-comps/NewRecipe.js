@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 import TextareaAutosize from "react-textarea-autosize";
 
 const NewRecipe = (props) => {
   const [recipe, setRecipe] = useState(null);
   const user = sessionStorage.getItem("user");
+  const params = useParams();
+  const { userId, recipeId } = params;
 
   useEffect(() => {
-    console.log(props);
     setRecipe({ ...props, ...props.time });
   }, []);
 
@@ -25,9 +26,8 @@ const NewRecipe = (props) => {
     fetch("/users/recipes", postRecipe)
       .then((res) => res.json())
       .then((data) => {
-        console.log("then", data);
         if (data.status === 200) {
-          history.push("/users/recipes/:userId/:recipeId");
+          history.push(`/users/recipes/${userId}/${recipeId}`);
         } else {
           alert("Recipe did not save.");
         }

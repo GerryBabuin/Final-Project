@@ -26,7 +26,6 @@ const DetailsRecipe = () => {
       .then((res) => res.json())
       .then((data) => {
         setRecipe(data.data);
-        console.log("Recipe Details", data);
       })
       .catch((err) => {
         console.log(err);
@@ -94,6 +93,7 @@ const DetailsRecipe = () => {
           <button className="clear-button">Delete</button>
           <button className="clear-button">Back</button>
         </div>
+        <div style={{ display: "block", height: "50px" }}></div>
       </div>
     </div>
   );

@@ -110,10 +110,25 @@ const getOneRecipe = async (req, res) => {
 const editRecipe = async (req, res) => {
   const { userId, recipeId } = req.params;
 
+  const {
+    recipe: {
+      id,
+      image,
+      name,
+      description,
+      ingredients,
+      instructions,
+      tags,
+      prep,
+      total,
+      servings,
+    },
+  } = req.body;
+
   const db = req.app.locals.client.db("Recipe-App");
 
-  // let singleRecipe;
-
+  let singleRecipe;
+  console.log(req.body.recipe.name);
   // search for user
   const user = await db.collection("Users").findOne({ username: userId });
 
@@ -124,22 +139,23 @@ const editRecipe = async (req, res) => {
   });
 
   try {
-    const newRecipe = {
+    const updateRecipe = {
       $set: {
-        name: req.body.name,
-        description: req.body.description,
-        ingredients: req.body.ingredients,
-        instructions: req.body.instructions,
-        tags: req.body.tags,
-        prep: req.body.prep,
-        total: req.body.total,
-        servings: req.body.servings,
+        "recipes.$.name": name,
+        "recipes.$.image": image,
+        "recipes.$.description": description,
+        "recipes.$.ingredients": ingredients,
+        "recipes.$.instructions": instructions,
+        "recipes.$.tags": tags,
+        "recipes.$.prep": prep,
+        "recipes.$.total": total,
+        "recipes.$.servings": servings,
       },
     };
 
-    const updateRecipe = { $set: { recipes: newRecipe } };
-
-    await db.collection("Users").updateOne(updateRecipe);
+    await db
+      .collection("Users")
+      .updateOne({ username: userId, "recipes.id": recipeId }, updateRecipe);
 
     res.status(200).json({
       status: 200,
@@ -160,19 +176,22 @@ const deleteRecipe = async (req, res) => {
   let singleRecipe;
 
   // search for user
-  const user = await db.collection("Users").findOne({ username: userId });
+  // const user = await db.collection("Users").findOne({ username: userId });
 
-  user.recipes.forEach((recipe) => {
-    if (recipe.id === recipeId) {
-      singleRecipe = recipe;
-    }
-  });
+  // user.recipes.forEach((recipe) => {
+  //   if (recipe.id === recipeId) {
+  //     singleRecipe = recipe;
+  //   }
+  // });
+  const updateRecipe = {
+    $pull: { recipes: { id: recipeId } },
+  };
 
   await db
     .collection("Users")
-    .updateOne({ username: userId }, { $pull: { singleRecipe } });
+    .updateOne({ username: userId, "recipes.id": recipeId }, updateRecipe);
 
-  if (singleRecipe) {
+  if (!singleRecipe) {
     res.status(200).json({ status: 200, data: "Recipe deleted" });
   } else {
     res.status(400).json({ status: 400, data: "Recipes was not deleted" });
@@ -181,14 +200,25 @@ const deleteRecipe = async (req, res) => {
 
 const findRecipes = async (req, res) => {
   const { id, query } = req.params;
+  // console.log(req.params);
+  // let userId = id;
 
   const db = req.app.locals.client.db("Recipe-App");
 
-  // const user = await db.collection("Users").findOne({ username: userId });
+  const user = await db.collection("Users").findOne({ username: id });
 
-  const foundRecipes = await db.collection("Users").find({ query }).toArray();
+  await user.recipes.forEach((recipe) => {
+    if (recipe.ingredients === query) {
+      res.status(200).json({ status: 200, data: recipe });
+    }
+  });
 
-  if (foundRecipes.length) {
+  // const foundRecipes = await db
+  //   .collection("Users")
+  //   .find({ username: id, "recipes.ingredients": query })
+  //   .toArray();
+
+  if (foundRecipes) {
     res.status(200).json({ status: 200, data: foundRecipes });
   } else {
     res.status(400).json({ status: 400, data: "No recipes were found" });

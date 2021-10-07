@@ -42,7 +42,6 @@ const SignIn = ({ setSignedInUser }) => {
         if (data.status === 200) {
           setLoggedIn(true);
           setSignedInUser(data.data);
-          console.log("setSignedInUser", data.data);
           window.sessionStorage.setItem("user", data.data.username);
           history.push(`/recipes/${data.data.username}`);
         } else {

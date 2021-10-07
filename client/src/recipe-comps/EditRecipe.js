@@ -29,6 +29,13 @@ const EditRecipe = () => {
     };
 
     fetch(`/users/recipes/${userId}/${recipeId}`, postRecipe);
+
+    // needs fixing
+    // if (res.ok) {
+    //   history.push(`/users/recipes/${userId}/${recipeId}`);
+    // } else {
+    //   alert("Recipe did not save.");
+    // }
   };
 
   if (!recipe) {
@@ -152,6 +159,7 @@ const EditRecipe = () => {
             Save
           </button>
         </form>
+        <div style={{ display: "block", height: "50px" }}></div>
       </div>
     </div>
   );

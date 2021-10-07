@@ -40,9 +40,9 @@ function App() {
           <Import />
         </Route>
         <Route path="/newrecipe">
-          <NewRecipe />
+          <NewRecipe user={user} />
         </Route>
-        <Route path="/search/:userId">
+        <Route path="/search">
           <Search signedInUser={signedInUser} />
         </Route>
         <Route path="/tags">

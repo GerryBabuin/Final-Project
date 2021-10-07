@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const GetTags = () => {
+const GetTags = ({ signedInUser }) => {
   const [data, setData] = useState([]);
   const [tags, setTags] = useState([]);
   const [time, setTime] = useState([]);
 
-  function handleClick(category) {
-    setTags(category);
+  function handleClick(tags) {
+    setTags(tags);
   }
+  // function handleRandom(tags) {
+  //   const randomItem = recipes[Math.floor(Math.random() * recipes.length)];
+  //   setTags(randomItem);
+  // }
 
   useEffect(() => {
     const path = tags ? `/search?tags=${tags}` : "/search";
@@ -45,8 +49,18 @@ const GetTags = () => {
           <button onClick={() => handleClick("Vegan")} className="categories">
             vegan
           </button>
-          <button className="categories">Under 30 mins</button>
-          <button className="categories">Suprise Me</button>
+          <button
+            onClick={() => handleClick("Under 30 mins")}
+            className="categories"
+          >
+            Under 30 mins
+          </button>
+          <button
+            onClick={() => handleClick("handleRandom")}
+            className="categories"
+          >
+            Suprise Me
+          </button>
           {/* <Link to="/search">
             <button className="categories">Search</button>
           </Link> */}

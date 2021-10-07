@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function Search({ signedInUser }) {
   const [query, setQuery] = useState("");
@@ -10,14 +10,29 @@ export default function Search({ signedInUser }) {
   const resetValue = () => {
     setQuery("");
   };
+  // console.log("Search", query);
+  // useEffect(() => {
+  //   fetch(`/search/${userId}/${query}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setRecipes(data.data);
+  //     });
+  // }, [query]);
 
-  useEffect(() => {
-    fetch(`/search/${userId}/${query}`)
+  const search = (e) => {
+    const postQuery = {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query }),
+    };
+    fetch("/search", postQuery)
       .then((res) => res.json())
-      .then((result) => {
-        setRecipes(result);
+      .then((data) => {
+        setQuery(data.data);
+        console.log("Search", query);
       });
-  }, []);
+  };
+  search();
 
   const handleSelect = (e) => {
     setQuery(e.target.value);
@@ -47,20 +62,6 @@ export default function Search({ signedInUser }) {
             Submit
           </button>
         </form>
-        {/* <div>
-          {!recipes ? (<p>one moment please</p>) : (
-              <ul>     
-              {recipes.map((recipe) => (
-                <Link
-                  to={`/users/recipes/${userId}/${recipe.id}`}
-                  className="recipe-link"
-                  key={recipe.id}
-                >
-                  <li>{recipe.name}</li>
-                </Link>
-              ))})
-            </ul>
-         </div> */}
       </div>
     </div>
   );

@@ -7,7 +7,6 @@ export default function Recipes() {
   const user = sessionStorage.getItem("user");
   const params = useParams();
   const userId = params.id;
-  console.log("id", userId);
   // const history = useHistory();
 
   useEffect(() => {
@@ -17,8 +16,6 @@ export default function Recipes() {
       .then((res) => res.json())
       .then((data) => {
         setTotalRecipes(data.data.recipes);
-        // setRecipeId(data.data.recipes.id);
-        console.log("Recipes page", data.data.recipes);
       })
       .catch((error) => {
         console.error("Error:", error);

@@ -34,7 +34,6 @@ const Import = () => {
       .then((res) => res.json())
       .then((data) => {
         setRecipeData(data.data);
-        // console.log("IU Recipe Data", data.data);
       });
   };
 
@@ -43,8 +42,6 @@ const Import = () => {
     ev.stopPropagation();
     convertUrl();
   };
-
-  console.log("setRecipeData", recipeData);
 
   return (
     <React.Fragment>
