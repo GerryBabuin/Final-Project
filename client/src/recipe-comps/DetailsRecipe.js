@@ -52,12 +52,7 @@ const DetailsRecipe = () => {
     <div className="grid">
       <div className="main-content-import">
         <div className="list-image-container">
-          <img
-            src={image}
-            alt={name}
-            className="import-recipe-image"
-            // className="list-recipe-image"
-          />
+          <img src={image} alt={name} className="list-recipe-image" />
         </div>
 
         <h3 className="list-recipe-name">{name}</h3>
@@ -76,25 +71,29 @@ const DetailsRecipe = () => {
             {servings}
           </div>
         </div>
-        <div id="ingredients" className="edit-recipe-description">
-          {ingredients}
+        <div className="edit-recipe-ingredients">
+          {ingredients.map((ingredient) => (
+            <div className="ingredients">{ingredient}</div>
+          ))}
         </div>
         <div id="instructions" className="edit-recipe-description">
-          {instructions}
+          {instructions.map((instruction) => (
+            <div className="instructions">{instruction}</div>
+          ))}
         </div>
-        <div id="tags" className="edit-recipe-description">
-          {tags}
+        <div>
+          <div className="edit-recipe-tags">{tags}</div>
         </div>
-
         <div className="details-buttons">
+          <button onClick={() => history.goBack()} className="clear-button">
+            Back
+          </button>
           <Link to={`/edit/recipe/${userId}/${recipeId}`}>
             <button className="clear-button">Edit</button>
           </Link>
           <button className="clear-button">Delete</button>
         </div>
-        <button onClick={() => history.goBack()} className="clear-button">
-          Back
-        </button>
+
         <div style={{ display: "block", height: "50px" }}></div>
       </div>
     </div>

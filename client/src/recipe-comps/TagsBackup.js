@@ -1,24 +1,32 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
 const GetTags = ({ signedInUser }) => {
-  const [tag, setTag] = useState("");
-  const [recipes, setRecipes] = useState(null);
-  const user = sessionStorage.getItem("user");
+  const [data, setData] = useState([]);
+  const [tags, setTags] = useState([]);
+  // const [time, setTime] = useState([]);
 
-  function handleClick(tag) {
-    // e.preventDefault();
-    setTag(tag);
-    sortRecipes();
+  function handleClick(tags) {
+    setTags(tags);
   }
-  const sortRecipes = (e) => {
-    fetch(`/search/${user}/${tag}`)
+  // function handleRandom(tags) {
+  //   const randomItem = recipes[Math.floor(Math.random() * recipes.length)];
+  //   setTags(randomItem);
+  // }
+
+  useEffect(() => {
+    const path = tags ? `/search?tags=${tags}` : "/search";
+    console.log("path", path);
+    fetch(path)
       .then((res) => res.json())
-      .then((result) => {
-        setRecipes(result.data);
-        console.log(result);
+      .then((data) => {
+        setData(data.data);
+        // console.log("Tags", tags);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
       });
-  };
+    setTags([]);
+  }, []);
 
   return (
     <div className="grid">
@@ -52,25 +60,6 @@ const GetTags = ({ signedInUser }) => {
           >
             Suprise Me
           </button>
-        </div>
-        <div>
-          {!recipes ? (
-            <p>click tags find recipes</p>
-          ) : !recipes.length ? (
-            <p>no recipes found</p>
-          ) : (
-            <ul>
-              {recipes.map((recipe) => (
-                <Link
-                  to={`/users/recipes/${user}/${recipe.id}`}
-                  className="recipe-link"
-                  key={recipe.id}
-                >
-                  <li className="list-recipe-name">{recipe.name}</li>
-                </Link>
-              ))}
-            </ul>
-          )}
         </div>
       </div>
     </div>

@@ -54,7 +54,9 @@ const NewRecipe = (props) => {
     <div className="grid">
       <div className="main-content-import">
         <form className="editRecipe" onSubmit={saveRecipe}>
-          <img src={image} alt={name} className="import-recipe-image" />
+          <div className="list-image-container">
+            <img src={image} alt={name} className="import-recipe-image" />
+          </div>
           <label for="name">Name:</label>
           <input
             type="text"
@@ -117,7 +119,9 @@ const NewRecipe = (props) => {
               setRecipe({ ...recipe, description: e.target.value });
             }}
           />
-          <label for="ingredients">Ingredients:</label>
+          <label id="ingredients" for="ingredients">
+            Ingredients:
+          </label>
           <TextareaAutosize
             autoSize={true}
             rows={2}

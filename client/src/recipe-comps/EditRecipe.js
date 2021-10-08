@@ -58,7 +58,7 @@ const EditRecipe = () => {
       <div className="main-content-import">
         <form className="editRecipe" onSubmit={saveRecipe}>
           <div className="list-image-container">
-            <img src={image} alt={name} className="import-recipe-image" />
+            <img src={image} alt={name} className="list-recipe-image" />
           </div>
           <label for="name">Name:</label>
           <input

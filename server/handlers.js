@@ -221,6 +221,33 @@ const findRecipes = async (req, res) => {
   }
 };
 
+const recipeTags = async (req, res) => {
+  const { id, tag } = req.params;
+  const sortedRecipes = [];
+
+  const db = req.app.locals.client.db("Recipe-App");
+
+  const user = await db.collection("Users").findOne({ username: id });
+
+  user.recipes.forEach((recipe) => {
+    recipe.ingredients.forEach((ingredient) => {
+      if (ingredient.toLowerCase().includes(tag.toLowerCase())) {
+        sortedRecipes.push(recipe);
+      }
+    });
+  });
+
+  if (sortedRecipes.length) {
+    res.status(200).json({ status: 200, data: sortedRecipes });
+  } else {
+    res.status(400).json({
+      status: 400,
+      message: "No recipes were found",
+      data: foundRecipes,
+    });
+  }
+};
+
 // SCRAPER - enter a supported recipe url as a parameter - returns a promise
 const getUrl = async (req, res) => {
   try {
@@ -239,13 +266,17 @@ const newRecipe = async (req, res) => {
 
   const { recipe } = req.body;
 
+  let ingredientList = recipe.ingredients;
+  // let reFormat = ingredientList.split(",").join("\n");
+  let reFormat = ingredientList.replace(/,/g, "\n");
+
   if (recipe) {
     const addRecipe = {
       id: uuidv4(),
       image: recipe.image,
       name: recipe.name,
       description: recipe.description,
-      ingredients: recipe.ingredients,
+      ingredients: reFormat,
       instructions: recipe.instructions,
       tags: recipe.tags,
       prep: recipe.prep,
@@ -280,4 +311,5 @@ module.exports = {
   getOneRecipe,
   editRecipe,
   deleteRecipe,
+  recipeTags,
 };

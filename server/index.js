@@ -24,6 +24,7 @@ const {
   getOneRecipe,
   editRecipe,
   deleteRecipe,
+  recipeTags,
 } = require("./handlers.js");
 
 const app = express()
@@ -60,8 +61,11 @@ const app = express()
   // get add new recipe
   .post("/users/recipes", newRecipe)
 
-  // get add new recipe
+  // search user's recipes
   .get("/search/:id/:query", findRecipes)
+
+  // sort user's recipes by tags
+  .get("/search/:id/:tag", recipeTags)
 
   // this is our catch all endpoint.
   .get("*", (req, res) => {
