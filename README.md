@@ -1,7 +1,7 @@
 # Final-Project
 
 This is recipe app that allows you import recipes from a variety of websites.
-[cinnamon_home](https://user-images.githubusercontent.com/59154911/137203041-2e58df4b-35f1-4b34-8889-3708aebc46dc.jpg)
+![cinnamon_home](https://user-images.githubusercontent.com/59154911/137203041-2e58df4b-35f1-4b34-8889-3708aebc46dc.jpg)
 ![cinnamon_login](https://user-images.githubusercontent.com/59154911/137203092-d0ff7e76-7bfd-4120-8ca6-117c7761974e.jpg)
 ![cinnamon_recipes](https://user-images.githubusercontent.com/59154911/137203125-b1dc60aa-1cb5-403d-809f-2891124e83ac.jpg)
 ![cinnamon_search](https://user-images.githubusercontent.com/59154911/137203157-9c92a79b-d8f2-4186-8228-9ab42202dd29.jpg)
