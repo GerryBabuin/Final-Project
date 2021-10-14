@@ -9,7 +9,7 @@ This is recipe app that allows you import recipes from a variety of websites.
 ![cinnamon_sort](https://user-images.githubusercontent.com/59154911/137392099-c32d57de-4e73-4129-9207-d342d66ff28d.jpg)
 
 Supported Websites
-https://www.101cookbooks.com/!
+https://www.101cookbooks.com/
 https://www.allrecipes.com/
 https://www.ambitiouskitchen.com/
 https://www.averiecooks.com/
@@ -52,6 +52,8 @@ https://whatsgabycooking.com/
 https://www.woolworths.com.au/
 https://www.yummly.com/
 https://www.jamieoliver.com/
+
+The scraper works better on some of these sites than others.
 
 You can edit, save and sort the recipes.
 
