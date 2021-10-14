@@ -62,4 +62,4 @@ Recipe deleted confirmation page
 Seperate the number and units (minutes or hours) so recipes can be sorted by cooking times
 After saving a new recipe the recipes page loaded instead of the newly imported recipe
 
-User: cerealkiller, sponner
+User: cerealkiller, spooner
