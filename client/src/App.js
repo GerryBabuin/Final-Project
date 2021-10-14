@@ -13,6 +13,8 @@ import Import from "./recipe-comps/ImportUrl";
 import NewRecipe from "./recipe-comps/NewRecipe";
 import DetailsRecipe from "./recipe-comps/DetailsRecipe";
 import EditRecipe from "./recipe-comps/EditRecipe";
+import RandomRecipe from "./recipe-comps/Random";
+import Confirmation from "./recipe-comps/Confirmation";
 
 function App() {
   const user = sessionStorage.getItem("user");
@@ -29,7 +31,10 @@ function App() {
         <Route path="/recipes/:id">
           <Recipes user={user} />
         </Route>
-        <Route path="/users/recipes/:userId/:recipeId">
+        <Route path="confirmation">
+          <Confirmation />
+        </Route>
+        <Route path="/recipes/:userId/:recipeId">
           <DetailsRecipe />
         </Route>
         <Route path="/edit/recipe/:userId/:recipeId">
@@ -46,6 +51,9 @@ function App() {
         </Route>
         <Route path="/tags">
           <Tags signedInUser={signedInUser} />
+        </Route>
+        <Route path="/random">
+          <RandomRecipe signedInUser={signedInUser} />
         </Route>
         <Route path="/signup">
           <SignUp />

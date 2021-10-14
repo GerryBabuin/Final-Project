@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import RandomRecipe from "./Random.js";
+
 
 const GetTags = () => {
     const [tag, setTag] = useState("");
@@ -8,34 +10,21 @@ const GetTags = () => {
 
     function handleClick(tag) {
         setTag(tag);
+        console.log("Tag", tag);
+        // sortRecipes();
     }
-    
+
     useEffect(() =>{
         if (tag !== "") {
         fetch(`/search/${user}/${tag}`)
         .then((res) => res.json())
         .then((data) => {
             setRecipes(data.data);
+            console.log("useEffect", data.data);
             })}
     }, [tag])
+    console.log("User", user);
     
-    function randomClick(e) {
-        console.log("User Random", user)
-        fetch(`/random/${user}`)
-        .then((res) => res.json())
-        .then((data) => {
-            setRecipes(data.data);
-            });
-    }
-    // function timeClick(e) {
-    //     console.log("Under 30", user)
-    //     fetch(`/totalTime/${user}`)
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //         setRecipes(data.data);
-    //         });
-    // }
-
     return (
 
         <div className = "grid" >
@@ -76,16 +65,16 @@ const GetTags = () => {
                 vegan 
                 </button> 
                 
-                {/* <button onClick = {timeClick}
+                <button onClick = {
+                    () => handleClick("Under 30 mins")
+                }
                 className = "categories" >
-                under 30 mins 
-                </button>  */}
-
-                <button onClick = {randomClick}
-                className = "categories" >
-                suprise me 
+                Under 30 mins 
                 </button> 
-                                
+                
+                
+                <RandomRecipe user={user} />
+                
             </div> 
             <div> 
                 

@@ -2,25 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import TextareaAutosize from "react-textarea-autosize";
 import { useParams, Link } from "react-router-dom";
+import DeleteRecipe from "./DeleteRecipe";
+// import NewRecipe from "./NewRecipe";
 
 const DetailsRecipe = () => {
   const [recipe, setRecipe] = useState(null);
-
   const user = sessionStorage.getItem("user");
   const params = useParams();
-  const { userId, recipeId } = params;
+  const { userId, recipeId} = params;
   const history = useHistory();
-
-  // create line breaks after commas
-  // let formatIngredients = document.getElementById(`ingredients`);
-  // let reFormatIngredients = replaceCommaLine(ingredients);
-  // function replaceCommaLine(data) {
-  //   //convert string to array and remove whitespace
-  //   let dataToArray = data.split(",").map((item) => item.trim());
-  //   //convert array to string replacing comma with new line
-  //   return dataToArray.join("\n");
-  // }
-
+console.log("Details Recipes", params)
   useEffect(() => {
     fetch(`/users/recipes/${userId}/${recipeId}`)
       .then((res) => res.json())
@@ -51,7 +42,7 @@ const DetailsRecipe = () => {
   return (
     <div className="grid">
       <div className="main-content-import">
-        <div className="list-image-container">
+        <div className="list-image-container" key = { recipe.id }>
           <img src={image} alt={name} className="list-recipe-image" />
         </div>
 
@@ -91,7 +82,7 @@ const DetailsRecipe = () => {
           <Link to={`/edit/recipe/${userId}/${recipeId}`}>
             <button className="clear-button">Edit</button>
           </Link>
-          <button className="clear-button">Delete</button>
+          <DeleteRecipe userId={userId} recipeId={recipeId} />
         </div>
 
         <div style={{ display: "block", height: "50px" }}></div>

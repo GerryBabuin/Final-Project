@@ -8,11 +8,11 @@ const EditRecipe = () => {
 
   const user = sessionStorage.getItem("user");
   const params = useParams();
-  const { userId, recipeId } = params;
+  const {recipeId } = params;
   const history = useHistory();
-
+console.log("Edit Recipe", recipeId)
   useEffect(() => {
-    fetch(`/users/recipes/${userId}/${recipeId}`)
+    fetch(`/users/recipes/${user}/${recipeId}`)
       .then((res) => res.json())
       .then((data) => {
         setRecipe(data.data);
@@ -28,9 +28,9 @@ const EditRecipe = () => {
       body: JSON.stringify({ recipe, userId: user }),
     };
 
-    fetch(`/users/recipes/${userId}/${recipeId}`, postRecipe).then((res) => {
+    fetch(`/users/recipes/${user}/${recipeId}`, postRecipe).then((res) => {
       if (res.ok) {
-        history.push(`/recipes/${userId}`);
+        history.push(`/recipes/${user}`);
       } else {
         alert("Recipe did not save.");
       }

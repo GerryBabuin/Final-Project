@@ -4,27 +4,10 @@ import Cinnamon from "../images/mockup-graphics-XxaIHwP5lsE-unsplash.png";
 import NewRecipe from "./NewRecipe";
 
 const Import = () => {
-  // const initialState = {
-  //   name: "",
-  //   description: "",
-  //   image: "",
-  //   ingredients: [],
-  //   instructions: [],
-  //   tags: "",
-  //   servings: "",
-  //   time: "",
-  //   active: "",
-  //   cook: "",
-  //   inactive: "",
-  //   prep: "",
-  //   ready: "",
-  //   total: "",
-  // };
-
   const [url, setUrl] = useState();
   const [recipeData, setRecipeData] = useState(null);
 
-  const convertUrl = (ev) => {
+  const convertUrl = (e) => {
     const postUrl = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -37,9 +20,9 @@ const Import = () => {
       });
   };
 
-  const handleClick = (ev) => {
-    ev.preventDefault();
-    ev.stopPropagation();
+  const handleClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     convertUrl();
   };
 
@@ -57,8 +40,8 @@ const Import = () => {
                   type="text"
                   placeholder="Paste recipe address here"
                   name="url"
-                  onChange={(ev) => {
-                    setUrl(ev.target.value);
+                  onChange={(e) => {
+                    setUrl(e.target.value);
                   }}
                 />
                 <button className="home-login-button" type="import">

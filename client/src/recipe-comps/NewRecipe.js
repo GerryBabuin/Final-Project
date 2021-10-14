@@ -6,8 +6,8 @@ const NewRecipe = (props) => {
   const [recipe, setRecipe] = useState(null);
   const user = sessionStorage.getItem("user");
   const params = useParams();
-  const { userId, recipeId } = params;
-
+  const { recipeId } = params;
+ console.log( "NewRecipe", props)
   useEffect(() => {
     setRecipe({ ...props, ...props.time });
   }, []);
@@ -27,7 +27,7 @@ const NewRecipe = (props) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
-          history.push(`/users/recipes/${userId}`);
+          history.push(`/recipes/${user}`);
         } else {
           alert("Recipe did not save.");
         }
