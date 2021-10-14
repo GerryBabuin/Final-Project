@@ -1,13 +1,12 @@
 # Final-Project
 
 This is recipe app that allows you import recipes from a variety of websites.
-![cinnamon_home](https://user-images.githubusercontent.com/59154911/137203041-2e58df4b-35f1-4b34-8889-3708aebc46dc.jpg)
-![cinnamon_login](https://user-images.githubusercontent.com/59154911/137203092-d0ff7e76-7bfd-4120-8ca6-117c7761974e.jpg)
-![cinnamon_recipes](https://user-images.githubusercontent.com/59154911/137203125-b1dc60aa-1cb5-403d-809f-2891124e83ac.jpg)
-![cinnamon_search](https://user-images.githubusercontent.com/59154911/137203157-9c92a79b-d8f2-4186-8228-9ab42202dd29.jpg)
-![cinnamon_sort](https://user-images.githubusercontent.com/59154911/137203172-e64cf2dc-6a7d-48ac-bbef-eae0a7a5a167.jpg)
-![cinnamon_import](https://user-images.githubusercontent.com/59154911/137203189-5f288c13-76c9-466f-a768-27a1fd16d306.jpg)
-
+![cinnamon_home](https://user-images.githubusercontent.com/59154911/137392024-1a043af3-ca47-4da9-a1d4-4237e8475c9f.jpg)
+![cinnamon_import](https://user-images.githubusercontent.com/59154911/137392037-f45d6982-bd11-495c-9a1f-49979dcf5e21.jpg)
+![cinnamon_login](https://user-images.githubusercontent.com/59154911/137392062-d670e16b-c62b-4c9c-b5fe-1cdd7f8fa66a.jpg)
+![cinnamon_recipes](https://user-images.githubusercontent.com/59154911/137392074-be93ec1a-a11f-4b7a-b46b-3ddc91c7ce00.jpg)
+![cinnamon_search](https://user-images.githubusercontent.com/59154911/137392083-6e6c3115-f82c-497d-914c-ca34ca8734e6.jpg)
+![cinnamon_sort](https://user-images.githubusercontent.com/59154911/137392099-c32d57de-4e73-4129-9207-d342d66ff28d.jpg)
 
 Supported Websites
 https://www.101cookbooks.com/!
