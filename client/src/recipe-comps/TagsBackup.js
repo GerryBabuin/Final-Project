@@ -8,19 +8,16 @@ const GetTags = ({ signedInUser }) => {
   function handleClick(tags) {
     setTags(tags);
   }
-  // function handleRandom(tags) {
-  //   const randomItem = recipes[Math.floor(Math.random() * recipes.length)];
-  //   setTags(randomItem);
-  // }
+  
 
   useEffect(() => {
     const path = tags ? `/search?tags=${tags}` : "/search";
-    console.log("path", path);
+    
     fetch(path)
       .then((res) => res.json())
       .then((data) => {
         setData(data.data);
-        // console.log("Tags", tags);
+        
       })
       .catch((error) => {
         console.error("Error:", error);

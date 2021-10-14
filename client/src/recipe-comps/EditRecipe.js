@@ -10,7 +10,7 @@ const EditRecipe = () => {
   const params = useParams();
   const {recipeId } = params;
   const history = useHistory();
-console.log("Edit Recipe", recipeId)
+
   useEffect(() => {
     fetch(`/users/recipes/${user}/${recipeId}`)
       .then((res) => res.json())

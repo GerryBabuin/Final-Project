@@ -19,7 +19,7 @@ export default function Search({ signedInUser }) {
       .then((res) => res.json())
       .then((result) => {
         setRecipes(result.data);
-        console.log(result);
+        
       });
   };
 

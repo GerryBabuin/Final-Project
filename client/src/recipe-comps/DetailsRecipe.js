@@ -11,7 +11,7 @@ const DetailsRecipe = () => {
   const params = useParams();
   const { userId, recipeId} = params;
   const history = useHistory();
-console.log("Details Recipes", params)
+
   useEffect(() => {
     fetch(`/users/recipes/${userId}/${recipeId}`)
       .then((res) => res.json())

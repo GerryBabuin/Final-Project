@@ -10,7 +10,7 @@ const GetTags = () => {
 
     function handleClick(tag) {
         setTag(tag);
-        console.log("Tag", tag);
+        
         // sortRecipes();
     }
 
@@ -20,7 +20,7 @@ const GetTags = () => {
         .then((res) => res.json())
         .then((data) => {
             setRecipes(data.data);
-            console.log("useEffect", data.data);
+            
             })}
     }, [tag])
     console.log("User", user);

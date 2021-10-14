@@ -11,7 +11,7 @@ export const RandomRecipe = () => {
 
     // generate random recipe
     function handleClick(e) {
-        console.log("User Random", user)
+      
         fetch(`/random/${user}`)
         .then((res) => res.json())
         .then((data) => {
@@ -20,7 +20,7 @@ export const RandomRecipe = () => {
             }
             setRandom(data.data);
             setLoading(false);
-            console.log("Random Comp", data.data)
+            
             });
     }
     
